@@ -1,0 +1,77 @@
+⚠️ AJUSTE CORRETIVO — FUNDO GLOBAL (GRID NÃO APARECE)
+
+CONTEXTO
+O fundo global (GRID + GRADIENT RADIAL) já existe e funciona,
+porém o conteúdo principal está cobrindo o fundo, fazendo o grid
+aparecer apenas no sidebar.
+
+OBJETIVO
+Garantir que o GRID + GRADIENT apareçam de forma uniforme
+em TODA a página, inclusive no conteúdo principal,
+mantendo contraste e legibilidade.
+
+REGRAS IMPORTANTES
+- NÃO alterar layout
+- NÃO alterar textos
+- NÃO alterar componentes
+- NÃO remover sidebar
+- NÃO criar novos backgrounds visuais
+- NÃO usar imagens
+- NÃO usar canvas
+
+────────────────────────────────────
+PASSO 1 — FUNDO GLOBAL (CONFIRMAR)
+────────────────────────────────────
+Manter o fundo global FIXO aplicado diretamente no body ou em um
+container root (ex: #global-background).
+
+Esse fundo deve conter:
+- Fundo base (dark/light)
+- Grid em baixa opacidade
+- Gradient radial suave
+- Interação leve com mouse (já existente)
+
+Nada deve ser alterado aqui, apenas confirmado.
+
+────────────────────────────────────
+PASSO 2 — CORREÇÃO DO CONTEÚDO PRINCIPAL
+────────────────────────────────────
+Identificar o container principal do conteúdo (main / page / section).
+
+Ajustar para:
+- Remover QUALQUER background sólido ou gradiente forte
+- Tornar o fundo TRANSPARENTE
+
+Aplicar APENAS uma camada de contraste leve:
+
+Dark mode:
+background: rgba(0, 0, 0, 0.35);
+backdrop-filter: blur(8px);
+
+Light mode:
+background: rgba(255, 255, 255, 0.55);
+backdrop-filter: blur(8px);
+
+⚠️ Não usar preto sólido, branco sólido ou gradientes fortes.
+
+────────────────────────────────────
+PASSO 3 — SIDEBAR (NÃO MEXER)
+────────────────────────────────────
+O sidebar já está correto.
+Manter o comportamento atual sem alterações.
+
+────────────────────────────────────
+PASSO 4 — GARANTIR HIERARQUIA DE CAMADAS
+────────────────────────────────────
+- Fundo global: z-index baixo
+- Conteúdo e sidebar: acima do fundo
+- Nenhum container deve "tampar" o fundo global
+
+────────────────────────────────────
+RESULTADO ESPERADO
+────────────────────────────────────
+- Grid visível em TODA a página
+- Conteúdo flutuando sobre o fundo
+- Visual premium estilo Next.js / Vercel
+- Contraste confortável
+- Performance preservada
