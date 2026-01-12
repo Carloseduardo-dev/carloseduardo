@@ -1,0 +1,123 @@
+ATENÇÃO: Aplicar SOMENTE os efeitos descritos abaixo.
+NÃO alterar layout existente, textos, componentes, rotas ou estrutura do site.
+
+────────────────────────────────────────
+PARTE 1 — FUNDO GLOBAL AVANÇADO (SITE TODO)
+────────────────────────────────────────
+
+Aplicar um FUNDO GLOBAL em TODO o site, inspirado no design oficial do Next.js / Vercel,
+com GRID + GRADIENT RADIAL SUAVE + INTERAÇÃO LEVE COM O MOUSE.
+
+OBJETIVO:
+Criar um fundo tecnológico, moderno e sofisticado que cubra TODA a página,
+transmitindo profissionalismo sem competir com o conteúdo.
+
+CAMADA 1 — FUNDO BASE
+- Dark mode: #0a0a0a ou #000000
+- Light mode: #ffffff ou #fafafa
+
+CAMADA 2 — GRID (GRADE)
+- Criar grid apenas com CSS (linear-gradient ou radial-gradient)
+- Linhas finas ou pontos
+- Opacidade muito baixa
+- Grid FIXO no fundo (não rola com o conteúdo)
+
+Configuração:
+- Espaçamento: 40px–60px
+- Espessura: 1px
+- Cores:
+  Dark: rgba(255,255,255,0.05)
+  Light: rgba(0,0,0,0.05)
+
+CAMADA 3 — GRADIENT RADIAL SUAVE
+- Gradient radial central ou levemente deslocado
+- Centro levemente mais claro
+- Bordas mais escuras
+- Mistura suave com o grid
+
+CAMADA 4 — INTERAÇÃO COM O MOUSE
+- Gradient reage suavemente ao movimento do mouse
+- Efeito com inércia (não seguir exatamente o cursor)
+- Movimento sutil e elegante
+- Implementar com:
+  - CSS variables + JS leve
+  - requestAnimationFrame
+  - ou Framer Motion (se já estiver no projeto)
+- NÃO usar canvas
+- NÃO usar libs pesadas
+
+COMPORTAMENTO:
+- Grid + gradient ficam FIXOS no fundo
+- Conteúdo rola normalmente por cima
+- Performance otimizada (sem re-render excessivo)
+
+RESPONSIVIDADE:
+- Mobile:
+  - Reduzir opacidade do grid
+  - Reduzir intensidade do gradient
+  - Desativar interação com mouse (touch)
+
+TEMA:
+- Integrar com toggle Dark / Light existente
+- Transições suaves (300ms–500ms)
+
+────────────────────────────────────────
+PARTE 2 — PARALLAX NA FOTO DE PERFIL (APENAS)
+────────────────────────────────────────
+
+Aplicar EFEITO PARALLAX SUAVE SOMENTE na foto de perfil do usuário.
+
+REGRAS:
+- Parallax ativado por movimento do mouse (desktop)
+- Movimento MUITO sutil (profissional)
+- Leve deslocamento em X e Y
+- Pequena sensação de profundidade
+- NÃO aplicar em nenhum outro elemento
+
+MOBILE:
+- Desativar parallax
+- Manter imagem estática
+
+────────────────────────────────────────
+PARTE 3 — PARALLAX NA SESSÃO "LIFESTYLE & JORNADA"
+────────────────────────────────────────
+
+Aplicar EFEITO PARALLAX SUAVE SOMENTE nas imagens da sessão "Lifestyle & Jornada".
+
+REGRAS:
+- Cada imagem deve ter parallax independente
+- Movimento vertical lento ao scroll
+- Sensação de profundidade (camadas)
+- Parallax leve (não exagerado)
+- Não alterar ordem, layout ou tamanho das imagens
+
+IMPORTANTE:
+- NÃO usar efeito cascata aqui
+- NÃO usar animações agressivas
+- O foco é elegância e fluidez
+
+MOBILE:
+- Reduzir intensidade do parallax
+- Ou desativar se comprometer performance
+
+────────────────────────────────────────
+REGRAS FINAIS (CRÍTICO)
+────────────────────────────────────────
+- NÃO alterar layout existente
+- NÃO alterar textos
+- NÃO alterar componentes
+- NÃO alterar rotas
+- NÃO usar imagens externas
+- NÃO usar canvas
+- Apenas CSS + JS leve
+- Código limpo, organizado e performático
+
+────────────────────────────────────────
+RESULTADO ESPERADO
+────────────────────────────────────────
+Um site com:
+✔ Fundo premium estilo Next.js / Vercel
+✔ Grid tecnológico sutil
+✔ Gradient interativo elegante
+✔ Parallax profissional apenas no perfil e Lifestyle
+✔ Visual moderno, sério e de alto nível técnico
