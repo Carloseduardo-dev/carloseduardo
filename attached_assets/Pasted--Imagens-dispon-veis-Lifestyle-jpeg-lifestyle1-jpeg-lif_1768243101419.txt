@@ -1,0 +1,193 @@
+### 📸 Imagens disponíveis:
+
+#### Lifestyle (.jpeg)
+- lifestyle1.jpeg
+- lifestyle2.jpeg
+- lifestyle3.jpeg
+- lifestyle4.jpeg
+
+#### Profissionais / Carreira (.png)
+- perfil.png
+- perfil-linkedin.png
+- stats.png
+- quickdraw-achievements-github.png
+- pull-shark-achievements-github.png
+- message-vagas.png
+- message-vagas1.png
+- message-vagas2.png
+- message-vagas3.png
+- contributions.png
+- activity-overview.png
+
+Essas imagens DEVEM ser usadas estrategicamente conforme as seções abaixo.
+
+---
+
+## 🧱 ESTRUTURA DO SITE
+
+### 1️⃣ HERO SECTION
+- Usar `perfil.png`
+- Nome: **Carlos Eduardo Ferreira**
+- Cargo: **Software Engineer | Computer Science**
+- Texto curto, sério e profissional
+- CTA primário: **Entrar em contato**
+- CTA secundário: **Ver projetos**
+
+---
+
+### 2️⃣ SOBRE MIM
+Texto adaptado para web, profissional e direto:
+
+> Sou Carlos Eduardo, Software Engineer com experiência em ambientes de startup, atuando no desenvolvimento de sistemas reais em produção. Trabalho com TypeScript, Node.js, Next.js, React, Firebase e automações, sempre focando em soluções escaláveis, seguras e bem estruturadas.
+
+> Já atuei na implementação de sistemas de pagamento, armazenamento em nuvem com AWS S3, dashboards analíticos, integrações com APIs de mercado e automações de processos.
+
+> Tenho perfil colaborativo, comunicação clara e foco constante em evolução técnica e qualidade de código.
+
+---
+
+### 3️⃣ TECNOLOGIAS & FERRAMENTAS
+Exibir em grid com ícones (estilo GitHub):
+
+- TypeScript
+- JavaScript
+- React
+- Next.js
+- Node.js
+- Firebase
+- MySQL
+- Git & GitHub
+- AWS S3
+- n8n
+- VS Code
+- IntelliJ
+
+---
+
+### 4️⃣ EXPERIÊNCIA & PROJETOS
+Cards de projetos com:
+- Nome do projeto
+- Descrição curta
+- Stack utilizada
+- Link para GitHub (quando existir)
+
+Foco em:
+- Sistemas reais
+- Dashboards
+- Automações
+- Integrações
+- Pagamentos
+- APIs
+
+---
+
+### 5️⃣ GITHUB & ATIVIDADE TÉCNICA
+Usar as seguintes imagens:
+- `stats.png`
+- `contributions.png`
+- `activity-overview.png`
+- `quickdraw-achievements-github.png`
+- `pull-shark-achievements-github.png`
+
+Criar uma seção visualmente organizada mostrando:
+- Consistência
+- Atividade real
+- Engajamento técnico
+- Contribuições contínuas
+
+---
+
+### 6️⃣ PROVAS SOCIAIS / OPORTUNIDADES
+Usar as imagens:
+- `perfil-linkedin.png`
+- `message-vagas.png`
+- `message-vagas1.png`
+- `message-vagas2.png`
+- `message-vagas3.png`
+
+Criar uma narrativa visual que demonstre:
+- Contato de recrutadores
+- Convites para vagas
+- Interesse profissional
+- Presença ativa no mercado
+
+---
+
+### 7️⃣ LIFESTYLE (SEÇÃO HUMANA & EDITORIAL)
+Criar uma **sessão chamada “Lifestyle & Jornada”**.
+
+Objetivo:
+Mostrar o lado humano, profissional e real do desenvolvedor, sem perder a seriedade.
+
+Usar exclusivamente:
+- lifestyle1.jpeg
+- lifestyle2.jpeg
+- lifestyle3.jpeg
+- lifestyle4.jpeg
+
+Diretrizes visuais:
+- Grid editorial
+- Imagens grandes, bem espaçadas
+- Tons neutros
+- Sem filtros exagerados
+- Transições suaves
+- Layout elegante e limpo
+
+Texto da seção:
+> Além do código, acredito que a construção de uma carreira sólida envolve experiências, conexões, aprendizado contínuo e presença em ambientes que impulsionam crescimento profissional e pessoal.
+
+Essa seção deve transmitir:
+- Autenticidade
+- Maturidade
+- Profissionalismo
+- Confiança
+
+---
+
+### 8️⃣ REDES SOCIAIS
+Links claros e organizados:
+- GitHub: https://github.com/Carloseduardo-dev
+- LinkedIn: https://www.linkedin.com/in/carlos-eduardo-ferreira-132295200
+- Instagram
+- Discord
+
+---
+
+### 9️⃣ CONTATO
+Criar seção clara e profissional:
+
+- Texto convidativo
+- Botão de e-mail funcional:
+  **contatocarloseduardofe@gmail.com**
+- Usar `mailto:`
+- Linguagem séria e aberta para oportunidades, freelas e networking
+
+---
+
+## 🛠️ TECNOLOGIAS OBRIGATÓRIAS
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS ou CSS Modules
+- Site 100% estático
+- Sem backend
+- SEO básico
+- Performance otimizada
+- Mobile-first
+
+---
+
+## 🌍 IDIOMA
+- Todo o site em **Português (PT-BR)**
+- Tom profissional, sério e objetivo
+
+---
+
+## 📌 RESULTADO FINAL ESPERADO
+- Portfólio com estética inspirada no GitHub
+- Visual corporativo e confiável
+- Forte presença profissional
+- Equilíbrio entre técnica, carreira e lifestyle
+- Ideal para recrutadores, startups e clientes
+
+Gere toda a estrutura do projeto, componentes e layout seguindo rigorosamente essas diretrizes.
