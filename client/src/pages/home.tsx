@@ -1,4 +1,4 @@
-import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Github, Linkedin, Mail, ExternalLink, MapPin, Code2, Database, Cloud, Terminal, Zap, MessageCircle, Phone, Send, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -89,114 +89,6 @@ const projects = [
   }
 ];
 
-function HeroAvatar() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
-  const isVisible = useInView(containerRef);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let rafId: number;
-    const updateParallax = () => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const scrollY = window.scrollY;
-        // Leve parallax: movimenta suavemente translateY baseado no scroll
-        // Limitado a +-30px conforme solicitado
-        const movement = Math.max(-30, Math.min(30, scrollY * 0.1));
-        setOffset(movement);
-      }
-      rafId = requestAnimationFrame(updateParallax);
-    };
-
-    rafId = requestAnimationFrame(updateParallax);
-    return () => cancelAnimationFrame(rafId);
-  }, [isVisible]);
-
-  return (
-    <motion.div 
-      ref={containerRef}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut", once: true }}
-      className="relative"
-    >
-      <motion.div 
-        style={{ y: offset, willChange: "transform" }}
-        className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 shadow-[0_0_50px_rgba(0,0,0,0.1)] dark:shadow-[0_0_50px_rgba(255,255,255,0.05)]"
-      >
-        <img 
-          src={perfilImg} 
-          alt="Carlos Eduardo Ferreira" 
-          className="w-full h-full object-cover"
-          data-testid="hero-avatar"
-        />
-      </motion.div>
-      <div className="absolute -bottom-4 -right-4 bg-card border border-border rounded-xl px-4 py-2 shadow-lg">
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">🚀</span>
-          <div>
-            <p className="text-xs text-muted-foreground">Experiência em</p>
-            <p className="text-sm font-semibold">Startups</p>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function ParallaxImage({ src, alt, className = "" }: { src: string, alt: string, className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
-  const [isLowPower, setIsLowPower] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setIsLowPower(mediaQuery.matches || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-    
-    if (isLowPower) return;
-
-    let rafId: number;
-    const handleScroll = () => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      
-      if (rect.top < viewportHeight && rect.bottom > 0) {
-        const center = rect.top + rect.height / 2;
-        const viewportCenter = viewportHeight / 2;
-        const distanceFromCenter = center - viewportCenter;
-        const intensity = window.innerWidth < 768 ? 0.03 : 0.08;
-        setOffset(distanceFromCenter * -intensity);
-      }
-    };
-
-    const animate = () => {
-      handleScroll();
-      rafId = requestAnimationFrame(animate);
-    };
-
-    rafId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafId);
-  }, [isLowPower]);
-
-  return (
-    <div ref={ref} className={`relative overflow-hidden rounded-xl border border-border group shadow-lg shadow-black/5 ${className}`}>
-      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-background/10 via-transparent to-background/10 opacity-40" />
-      <div className="absolute inset-0 z-10 pointer-events-none ring-1 ring-inset ring-white/10" />
-      
-      <motion.img 
-        src={src} 
-        alt={alt}
-        style={{ y: isLowPower ? 0 : offset }}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-      />
-      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-    </div>
-  );
-}
-
 function CascadeReveal({ images, isRecruiter = false }: { images: string[], isRecruiter?: boolean }) {
   const [visibleIndices, setVisibleIndices] = useState<number[]>([]);
   const refs = useRef<(HTMLDivElement | null)[]>([]);
@@ -208,10 +100,13 @@ function CascadeReveal({ images, isRecruiter = false }: { images: string[], isRe
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
+            // Se for o primeiro, ou se o anterior já estiver visível (cascata controlada pelo scroll)
+            // Na verdade o requisito diz "A próxima imagem NÃO aparece até que a anterior esteja 100% visível na viewport"
+            // Isso implica que o usuário precisa rolar o suficiente para ver a anterior antes da próxima carregar.
             setVisibleIndices(prev => entry.intersectionRatio >= 0.99 ? [...new Set([...prev, index])] : prev);
           }
         },
-        { threshold: 0.99 }
+        { threshold: 0.99 } // 100% visível
       );
       
       observer.observe(ref);
@@ -225,27 +120,23 @@ function CascadeReveal({ images, isRecruiter = false }: { images: string[], isRe
     <div className={isRecruiter ? "space-y-4" : "grid grid-cols-2 lg:grid-cols-4 gap-4"}>
       {images.map((img, i) => {
         const canShow = i === 0 || visibleIndices.includes(i - 1);
-        const isVisible = canShow && visibleIndices.includes(i);
         
         return (
-          <div key={i} ref={el => refs.current[i] = el} className={!isRecruiter && (i === 1 || i === 2) ? 'row-span-2' : ''}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="h-full"
-            >
-              {isVisible ? (
-                <ParallaxImage 
-                  src={img} 
-                  alt={`Reveal ${i + 1}`}
-                  className="h-full"
-                />
-              ) : (
-                <div className="h-full w-full rounded-xl bg-muted/20 animate-pulse" />
-              )}
-            </motion.div>
-          </div>
+          <motion.div
+            key={i}
+            ref={el => refs.current[i] = el}
+            initial={{ opacity: 0, y: 20 }}
+            animate={canShow && visibleIndices.includes(i) ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className={`overflow-hidden rounded-xl border border-border group relative ${!isRecruiter && (i === 1 || i === 2) ? 'row-span-2' : ''}`}
+          >
+            <img 
+              src={img} 
+              alt={`Reveal ${i + 1}`}
+              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+          </motion.div>
         );
       })}
     </div>
@@ -341,12 +232,30 @@ export default function Home() {
                 </Button>
               </div>
             </RevealItem>
-            <HeroAvatar />
+            <RevealItem delay={0.2} className="relative">
+              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20">
+                <img 
+                  src={perfilImg} 
+                  alt="Carlos Eduardo Ferreira" 
+                  className="w-full h-full object-cover"
+                  data-testid="hero-avatar"
+                />
+              </div>
+              <div className="absolute -bottom-4 -right-4 bg-card border border-border rounded-xl px-4 py-2 shadow-lg">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🚀</span>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Experiência em</p>
+                    <p className="text-sm font-semibold">Startups</p>
+                  </div>
+                </div>
+              </div>
+            </RevealItem>
           </div>
         </div>
       </section>
 
-      {/* Sobre Mim */}
+      {/* Sobre Section */}
       <section id="sobre" className="py-20 px-6 bg-card/50" data-testid="section-sobre">
         <div className="max-w-6xl mx-auto">
           <RevealItem>
@@ -567,7 +476,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contato Section */}
+      {/* Vamos Conversar? Section */}
       <section id="contato" className="py-20 px-6 bg-card/50" data-testid="section-contato">
         <div className="max-w-4xl mx-auto">
           <RevealItem>
