@@ -1,6 +1,15 @@
-import { motion } from "framer-motion";
-import { Github, Linkedin, Instagram, Mail, ExternalLink, MapPin, Code2, Database, Cloud, Terminal, Zap, Users, BookOpen, MessageCircle } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Github, Linkedin, Instagram, Mail, ExternalLink, MapPin, Code2, Database, Cloud, Terminal, Zap, MessageCircle, Phone, Send, ExternalLink as ExternalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useForm } from "react-hook-form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useToast } from "@/hooks/use-toast";
+import { Card } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 import perfilImg from "@assets/perfil_1768243015797.png";
 import statsImg from "@assets/stats_1768243015798.png";
@@ -15,33 +24,47 @@ import lifestyle2Img from "@assets/lifestyle2_1768243015795.jpeg";
 import lifestyle3Img from "@assets/lifestlyle3_1768243015795.jpeg";
 import lifestyle4Img from "@assets/lifestyle4_1768243015796.jpeg";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 }
-};
+import tsIcon from "@assets/typescript_1768245632541.png";
+import jsIcon from "@assets/javascript_1768245632534.png";
+import reactIcon from "@assets/react_1768245632540.png";
+import nextIcon from "@assets/next_1768245632538.png";
+import firebaseIcon from "@assets/firebase_1768245632531.png";
+import mysqlIcon from "@assets/mysql_1768245632535.png";
+import gitIcon from "@assets/git_1768245632532.png";
+import n8nIcon from "@assets/n8n_1768245632537.png";
+import vscodeIcon from "@assets/vscode_1768245632542.png";
+import cssIcon from "@assets/css_1768245632528.png";
+import htmlIcon from "@assets/html_1768245632533.png";
 
-const stagger = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1
-    }
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  email: z.string().email("E-mail inválido"),
+  message: z.string().min(10, "Mensagem deve ter pelo menos 10 caracteres"),
+});
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+
+const revealAnimation = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
   }
 };
 
 const technologies = [
-  { name: "TypeScript", icon: "TS", color: "#3178c6" },
-  { name: "JavaScript", icon: "JS", color: "#f7df1e" },
-  { name: "React", icon: "⚛️", color: "#61dafb" },
-  { name: "Next.js", icon: "N", color: "#fff" },
-  { name: "Node.js", icon: "⬢", color: "#68a063" },
-  { name: "Firebase", icon: "🔥", color: "#ffca28" },
-  { name: "MySQL", icon: "🗄️", color: "#4479a1" },
-  { name: "Git", icon: "⎇", color: "#f05032" },
-  { name: "AWS S3", icon: "☁️", color: "#ff9900" },
-  { name: "n8n", icon: "⚡", color: "#ea4b71" },
-  { name: "VS Code", icon: "📝", color: "#007acc" },
-  { name: "IntelliJ", icon: "🧠", color: "#fe315d" },
+  { name: "TypeScript", icon: tsIcon },
+  { name: "JavaScript", icon: jsIcon },
+  { name: "React", icon: reactIcon },
+  { name: "Next.js", icon: nextIcon },
+  { name: "Firebase", icon: firebaseIcon },
+  { name: "MySQL", icon: mysqlIcon },
+  { name: "Git", icon: gitIcon },
+  { name: "n8n", icon: n8nIcon },
+  { name: "VS Code", icon: vscodeIcon },
+  { name: "CSS3", icon: cssIcon },
+  { name: "HTML5", icon: htmlIcon },
 ];
 
 const projects = [
@@ -71,52 +94,72 @@ const projects = [
   }
 ];
 
-export default function Home() {
+function RevealItem({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) {
   return (
-    <div className="min-h-screen bg-background">
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <motion.span 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="font-semibold text-lg"
-            data-testid="nav-logo"
-          >
-            carlos<span className="text-primary">eduardo</span>
-          </motion.span>
-          <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-            <a href="#sobre" className="hover:text-foreground transition-colors" data-testid="nav-sobre">Sobre</a>
-            <a href="#tecnologias" className="hover:text-foreground transition-colors" data-testid="nav-tecnologias">Tecnologias</a>
-            <a href="#projetos" className="hover:text-foreground transition-colors" data-testid="nav-projetos">Projetos</a>
-            <a href="#github" className="hover:text-foreground transition-colors" data-testid="nav-github">GitHub</a>
-            <a href="#contato" className="hover:text-foreground transition-colors" data-testid="nav-contato">Contato</a>
-          </div>
-          <Button 
-            asChild 
-            size="sm" 
-            className="bg-primary hover:bg-primary/90"
-            data-testid="nav-cta"
-          >
-            <a href="mailto:contatocarloseduardofe@gmail.com">
-              <Mail className="w-4 h-4 mr-2" />
-              Contato
-            </a>
-          </Button>
-        </div>
-      </nav>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { 
+          opacity: 1, 
+          y: 0, 
+          transition: { delay, duration: 0.5, ease: "easeOut" } 
+        }
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
-      <section className="pt-32 pb-20 px-6" data-testid="section-hero">
+export default function Home() {
+  const { toast } = useToast();
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  function onSubmit(values: ContactFormValues) {
+    const mailtoLink = `mailto:contatocarloseduardofe@gmail.com?subject=Contato de ${values.name}&body=${values.message}%0D%0A%0D%0AEmail de contato: ${values.email}`;
+    window.location.href = mailtoLink;
+    toast({
+      title: "Solicitação enviada!",
+      description: "Seu cliente de e-mail foi aberto com os dados preenchidos.",
+    });
+  }
+
+  return (
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Ripple Effect Support */}
+      <style>{`
+        .ripple {
+          position: absolute;
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          background-color: rgba(var(--primary), 0.3);
+          pointer-events: none;
+        }
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      `}</style>
+
+      {/* Hero Section */}
+      <section className="pt-20 pb-20 px-6" data-testid="section-hero">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
-            className="flex flex-col lg:flex-row items-center gap-12"
-            initial="initial"
-            animate="animate"
-            variants={stagger}
-          >
-            <motion.div 
-              className="flex-1 text-center lg:text-left"
-              variants={fadeInUp}
-            >
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <RevealItem className="flex-1 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm mb-6 border border-primary/20">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                 Disponível para oportunidades
@@ -136,10 +179,10 @@ export default function Home() {
                 <Button 
                   asChild 
                   size="lg" 
-                  className="bg-primary hover:bg-primary/90"
+                  className="bg-primary hover:bg-primary/90 rounded-full"
                   data-testid="hero-cta-contato"
                 >
-                  <a href="mailto:contatocarloseduardofe@gmail.com">
+                  <a href="#contato">
                     <Mail className="w-5 h-5 mr-2" />
                     Entrar em contato
                   </a>
@@ -148,7 +191,7 @@ export default function Home() {
                   asChild 
                   variant="outline" 
                   size="lg"
-                  className="border-border hover:bg-secondary"
+                  className="border-border hover:bg-secondary rounded-full"
                   data-testid="hero-cta-projetos"
                 >
                   <a href="#projetos">
@@ -157,11 +200,8 @@ export default function Home() {
                   </a>
                 </Button>
               </div>
-            </motion.div>
-            <motion.div 
-              className="relative"
-              variants={fadeInUp}
-            >
+            </RevealItem>
+            <RevealItem delay={0.2} className="relative">
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20">
                 <img 
                   src={perfilImg} 
@@ -179,19 +219,15 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </RevealItem>
+          </div>
         </div>
       </section>
 
+      {/* Sobre Section */}
       <section id="sobre" className="py-20 px-6 bg-card/50" data-testid="section-sobre">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
               Sobre <span className="text-gradient">Mim</span>
             </h2>
@@ -214,69 +250,57 @@ export default function Home() {
                   { icon: Cloud, label: "Cloud", desc: "AWS, Firebase, Deploy" },
                   { icon: Zap, label: "Automação", desc: "Workflows inteligentes" },
                 ].map((item, i) => (
-                  <div 
-                    key={i}
-                    className="bg-card border border-border rounded-xl p-4 card-hover"
-                    data-testid={`sobre-skill-${i}`}
-                  >
-                    <item.icon className="w-8 h-8 text-primary mb-3" />
-                    <h3 className="font-semibold mb-1">{item.label}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
-                  </div>
+                  <RevealItem key={i} delay={i * 0.1}>
+                    <div className="bg-card border border-border rounded-xl p-4 hover-elevate h-full">
+                      <item.icon className="w-8 h-8 text-primary mb-3" />
+                      <h3 className="font-semibold mb-1">{item.label}</h3>
+                      <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    </div>
+                  </RevealItem>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </RevealItem>
         </div>
       </section>
 
+      {/* Tecnologias Section */}
       <section id="tecnologias" className="py-20 px-6" data-testid="section-tecnologias">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
               Tecnologias & <span className="text-gradient">Ferramentas</span>
             </h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
               Stack tecnológica utilizada no desenvolvimento de soluções em produção
             </p>
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
               {technologies.map((tech, i) => (
-                <motion.div
-                  key={tech.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  className="bg-card border border-border rounded-xl p-4 text-center card-hover group"
-                  data-testid={`tech-${tech.name.toLowerCase().replace(/\s/g, '-')}`}
-                >
-                  <div 
-                    className="text-2xl mb-2 group-hover:scale-110 transition-transform"
-                    style={{ color: tech.color }}
-                  >
-                    {tech.icon}
-                  </div>
-                  <p className="text-xs text-muted-foreground">{tech.name}</p>
-                </motion.div>
+                <RevealItem key={tech.name} delay={i * 0.05}>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="bg-card border border-border rounded-xl p-6 flex flex-col items-center justify-center hover-elevate transition-all aspect-square grayscale hover:grayscale-0">
+                          <img src={tech.icon} alt={tech.name} className="w-12 h-12 mb-2 object-contain" />
+                          <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">{tech.name}</p>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{tech.name}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </RevealItem>
               ))}
             </div>
-          </motion.div>
+          </RevealItem>
         </div>
       </section>
 
+      {/* Projetos Section */}
       <section id="projetos" className="py-20 px-6 bg-card/50" data-testid="section-projetos">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
               Experiência & <span className="text-gradient">Projetos</span>
             </h2>
@@ -285,57 +309,44 @@ export default function Home() {
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               {projects.map((project, i) => (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-card border border-border rounded-xl p-6 card-hover group"
-                  data-testid={`project-${i}`}
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                        <Terminal className="w-5 h-5 text-primary" />
+                <RevealItem key={project.title} delay={i * 0.1}>
+                  <div className="bg-card border border-border rounded-xl p-6 hover-elevate group">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <Terminal className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold group-hover:text-primary transition-colors">
+                            {project.title}
+                          </h3>
+                          <span className="text-xs text-muted-foreground">{project.type}</span>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-semibold group-hover:text-primary transition-colors">
-                          {project.title}
-                        </h3>
-                        <span className="text-xs text-muted-foreground">{project.type}</span>
-                      </div>
+                      <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                     </div>
-                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.stack.map((tech) => (
+                        <span key={tech} className="px-2 py-1 text-xs rounded-md bg-secondary text-muted-foreground">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.stack.map((tech) => (
-                      <span 
-                        key={tech}
-                        className="px-2 py-1 text-xs rounded-md bg-secondary text-muted-foreground"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
+                </RevealItem>
               ))}
             </div>
-          </motion.div>
+          </RevealItem>
         </div>
       </section>
 
+      {/* GitHub Section */}
       <section id="github" className="py-20 px-6" data-testid="section-github">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
               GitHub & <span className="text-gradient">Atividade Técnica</span>
             </h2>
@@ -344,46 +355,52 @@ export default function Home() {
             </p>
             
             <div className="grid lg:grid-cols-2 gap-6 mb-8">
-              <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="github-stats">
-                <img src={statsImg} alt="GitHub Stats" className="w-full h-auto rounded-lg" />
-              </div>
-              <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="github-activity">
-                <img src={activityImg} alt="Activity Overview" className="w-full h-auto rounded-lg" />
-              </div>
+              <RevealItem delay={0.1}>
+                <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="github-stats">
+                  <img src={statsImg} alt="GitHub Stats" className="w-full h-auto rounded-lg" />
+                </div>
+              </RevealItem>
+              <RevealItem delay={0.2}>
+                <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="github-activity">
+                  <img src={activityImg} alt="Activity Overview" className="w-full h-auto rounded-lg" />
+                </div>
+              </RevealItem>
             </div>
             
-            <div className="bg-card border border-border rounded-xl p-4 overflow-hidden mb-8" data-testid="github-contributions">
-              <img src={contributionsImg} alt="Contributions" className="w-full h-auto rounded-lg" />
-            </div>
+            <RevealItem delay={0.3}>
+              <div className="bg-card border border-border rounded-xl p-4 overflow-hidden mb-8" data-testid="github-contributions">
+                <img src={contributionsImg} alt="Contributions" className="w-full h-auto rounded-lg" />
+              </div>
+            </RevealItem>
             
             <div className="flex flex-wrap justify-center gap-6">
-              <div className="flex items-center gap-4 bg-card border border-border rounded-xl p-4" data-testid="github-achievement-pullshark">
-                <img src={pullSharkImg} alt="Pull Shark Achievement" className="w-16 h-16 rounded-full" />
-                <div>
-                  <h4 className="font-semibold">Pull Shark</h4>
-                  <p className="text-sm text-muted-foreground">Pull Requests merged</p>
+              <RevealItem delay={0.4}>
+                <div className="flex items-center gap-4 bg-card border border-border rounded-xl p-4" data-testid="github-achievement-pullshark">
+                  <img src={pullSharkImg} alt="Pull Shark Achievement" className="w-16 h-16 rounded-full" />
+                  <div>
+                    <h4 className="font-semibold">Pull Shark</h4>
+                    <p className="text-sm text-muted-foreground">Pull Requests merged</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-4 bg-card border border-border rounded-xl p-4" data-testid="github-achievement-quickdraw">
-                <img src={quickdrawImg} alt="Quickdraw Achievement" className="w-16 h-16 rounded-full" />
-                <div>
-                  <h4 className="font-semibold">Quickdraw</h4>
-                  <p className="text-sm text-muted-foreground">Fast responses</p>
+              </RevealItem>
+              <RevealItem delay={0.5}>
+                <div className="flex items-center gap-4 bg-card border border-border rounded-xl p-4" data-testid="github-achievement-quickdraw">
+                  <img src={quickdrawImg} alt="Quickdraw Achievement" className="w-16 h-16 rounded-full" />
+                  <div>
+                    <h4 className="font-semibold">Quickdraw</h4>
+                    <p className="text-sm text-muted-foreground">Fast responses</p>
+                  </div>
                 </div>
-              </div>
+              </RevealItem>
             </div>
-          </motion.div>
+          </RevealItem>
         </div>
       </section>
 
+      {/* Recrutadores Section */}
       <section className="py-20 px-6 bg-card/50" data-testid="section-social-proof">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
               Reconhecimento & <span className="text-gradient">Oportunidades</span>
             </h2>
@@ -392,34 +409,34 @@ export default function Home() {
             </p>
             
             <div className="grid lg:grid-cols-2 gap-8 items-start">
-              <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="linkedin-profile">
-                <img src={linkedinProfileImg} alt="LinkedIn Profile" className="w-full h-auto rounded-lg" />
-              </div>
+              <RevealItem delay={0.1}>
+                <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="linkedin-profile">
+                  <img src={linkedinProfileImg} alt="LinkedIn Profile" className="w-full h-auto rounded-lg" />
+                </div>
+              </RevealItem>
               <div className="space-y-4">
-                <div className="flex items-center gap-3 mb-6">
-                  <MessageCircle className="w-6 h-6 text-primary" />
-                  <h3 className="text-xl font-semibold">Mensagens de Recrutadores</h3>
-                </div>
-                <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="recruiter-messages">
-                  <img src={messageVagasImg} alt="Recruiter Messages" className="w-full h-auto rounded-lg" />
-                </div>
-                <p className="text-sm text-muted-foreground text-center pt-4">
-                  Convites para processos seletivos e indicações profissionais
-                </p>
+                <RevealItem delay={0.2}>
+                  <div className="flex items-center gap-3 mb-6">
+                    <MessageCircle className="w-6 h-6 text-primary" />
+                    <h3 className="text-xl font-semibold">Mensagens de Recrutadores</h3>
+                  </div>
+                  <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="recruiter-messages">
+                    <img src={messageVagasImg} alt="Recruiter Messages" className="w-full h-auto rounded-lg" />
+                  </div>
+                  <p className="text-sm text-muted-foreground text-center pt-4">
+                    Convites para processos seletivos e indicações profissionais
+                  </p>
+                </RevealItem>
               </div>
             </div>
-          </motion.div>
+          </RevealItem>
         </div>
       </section>
 
+      {/* Lifestyle Section */}
       <section className="py-20 px-6" data-testid="section-lifestyle">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
               Lifestyle & <span className="text-gradient">Jornada</span>
             </h2>
@@ -429,141 +446,149 @@ export default function Home() {
             
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[lifestyle1Img, lifestyle2Img, lifestyle3Img, lifestyle4Img].map((img, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className={`overflow-hidden rounded-xl border border-border ${i === 1 || i === 2 ? 'row-span-2' : ''}`}
-                  data-testid={`lifestyle-${i + 1}`}
-                >
-                  <img 
-                    src={img} 
-                    alt={`Lifestyle ${i + 1}`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                </motion.div>
+                <RevealItem key={i} delay={i * 0.2}>
+                  <div className={`overflow-hidden rounded-xl border border-border group relative ${i === 1 || i === 2 ? 'row-span-2' : ''}`} data-testid={`lifestyle-${i + 1}`}>
+                    <img 
+                      src={img} 
+                      alt={`Lifestyle ${i + 1}`}
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-102"
+                    />
+                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                  </div>
+                </RevealItem>
               ))}
             </div>
-          </motion.div>
+          </RevealItem>
         </div>
       </section>
 
-      <section className="py-20 px-6 bg-card/50" data-testid="section-redes">
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Redes <span className="text-gradient">Sociais</span>
-            </h2>
-            <p className="text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Conecte-se comigo nas principais plataformas
-            </p>
-            
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button 
-                asChild 
-                variant="outline" 
-                size="lg"
-                className="border-border hover:bg-secondary hover:border-primary/50"
-                data-testid="social-github"
-              >
-                <a href="https://github.com/Carloseduardo-dev" target="_blank" rel="noopener noreferrer">
-                  <Github className="w-5 h-5 mr-2" />
-                  GitHub
-                </a>
-              </Button>
-              <Button 
-                asChild 
-                variant="outline" 
-                size="lg"
-                className="border-border hover:bg-secondary hover:border-primary/50"
-                data-testid="social-linkedin"
-              >
-                <a href="https://www.linkedin.com/in/carlos-eduardo-ferreira-132295200" target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="w-5 h-5 mr-2" />
-                  LinkedIn
-                </a>
-              </Button>
-              <Button 
-                asChild 
-                variant="outline" 
-                size="lg"
-                className="border-border hover:bg-secondary hover:border-primary/50"
-                data-testid="social-instagram"
-              >
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  <Instagram className="w-5 h-5 mr-2" />
-                  Instagram
-                </a>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section id="contato" className="py-20 px-6" data-testid="section-contato">
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      {/* Vamos Conversar? Section */}
+      <section id="contato" className="py-20 px-6 bg-card/50" data-testid="section-contato">
+        <div className="max-w-4xl mx-auto">
+          <RevealItem>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
               Vamos <span className="text-gradient">Conversar?</span>
             </h2>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Estou aberto a novas oportunidades, projetos freelance e parcerias. Entre em contato e vamos criar algo incrível juntos.
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              Tem um projeto em mente ou quer apenas bater um papo sobre tecnologia? Sinta-se à vontade para entrar em contato.
             </p>
-            
-            <div className="bg-card border border-border rounded-2xl p-8 mb-8">
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-primary" />
+
+            <div className="grid md:grid-cols-2 gap-12">
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                    <Mail className="text-primary w-5 h-5" /> Contato Direto
+                  </h3>
+                  <div className="space-y-4">
+                    <Button variant="ghost" className="w-full justify-start hover-elevate px-4 h-12" asChild>
+                      <a href="mailto:contatocarloseduardofe@gmail.com">
+                        <Mail className="mr-3 h-5 w-5 text-primary" />
+                        contatocarloseduardofe@gmail.com
+                      </a>
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start hover-elevate px-4 h-12" asChild>
+                      <a href="https://wa.me/5521999045177" target="_blank" rel="noopener noreferrer">
+                        <Phone className="mr-3 h-5 w-5 text-primary" />
+                        WhatsApp: +55 21 99904-5177
+                      </a>
+                    </Button>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <p className="text-sm text-muted-foreground">E-mail</p>
-                  <p className="font-semibold" data-testid="contato-email">contatocarloseduardofe@gmail.com</p>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                    <Users className="text-primary w-5 h-5" /> Redes Sociais
+                  </h3>
+                  <div className="flex flex-wrap gap-4">
+                    <Button variant="outline" size="icon" className="w-12 h-12 rounded-full hover-elevate" asChild>
+                      <a href="https://github.com/Carloseduardo-dev" target="_blank" rel="noopener noreferrer">
+                        <Github className="w-5 h-5" />
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="icon" className="w-12 h-12 rounded-full hover-elevate" asChild>
+                      <a href="https://www.linkedin.com/in/carlos-eduardo-ferreira-132295200" target="_blank" rel="noopener noreferrer">
+                        <Linkedin className="w-5 h-5" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10">
+                  <h4 className="font-semibold mb-2 flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-primary" /> Falar no WhatsApp
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Clique abaixo para abrir uma conversa direta de forma rápida e segura.
+                  </p>
+                  <Button asChild className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full">
+                    <a href="https://wa.me/5521999045177" target="_blank" rel="noopener noreferrer">
+                      <Phone className="w-4 h-4 mr-2" />
+                      WhatsApp Direto
+                    </a>
+                  </Button>
                 </div>
               </div>
-              <Button 
-                asChild 
-                size="lg" 
-                className="w-full sm:w-auto bg-primary hover:bg-primary/90"
-                data-testid="contato-cta"
-              >
-                <a href="mailto:contatocarloseduardofe@gmail.com">
-                  <Mail className="w-5 h-5 mr-2" />
-                  Enviar E-mail
-                </a>
-              </Button>
+
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 bg-card p-8 rounded-2xl border border-border shadow-sm">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nome</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Seu nome" {...field} className="h-12 bg-background" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>E-mail</FormLabel>
+                        <FormControl>
+                          <Input placeholder="seu@email.com" {...field} className="h-12 bg-background" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mensagem</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Como posso ajudar?" 
+                            className="min-h-[120px] bg-background resize-none" 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full h-12 rounded-full" data-testid="button-submit-contact">
+                    <Send className="w-4 h-4 mr-2" />
+                    Enviar mensagem
+                  </Button>
+                </form>
+              </Form>
             </div>
-            
-            <p className="text-sm text-muted-foreground">
-              Respondendo em até 24 horas
-            </p>
-          </motion.div>
+          </RevealItem>
         </div>
       </section>
 
-      <footer className="py-8 px-6 border-t border-border">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p data-testid="footer-copyright">© 2025 Carlos Eduardo Ferreira. Todos os direitos reservados.</p>
-          <div className="flex items-center gap-6">
-            <a href="https://github.com/Carloseduardo-dev" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="footer-github">
-              <Github className="w-5 h-5" />
-            </a>
-            <a href="https://www.linkedin.com/in/carlos-eduardo-ferreira-132295200" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="footer-linkedin">
-              <Linkedin className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
+      <footer className="py-12 px-6 border-t border-border/50 text-center">
+        <p className="text-sm text-muted-foreground">
+          © {new Date().getFullYear()} Carlos Eduardo Ferreira. Desenvolvido com React & Tailwind.
+        </p>
       </footer>
     </div>
   );

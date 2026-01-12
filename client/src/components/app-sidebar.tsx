@@ -1,0 +1,74 @@
+import { Calendar, Home, Inbox, Search, Settings, User, Code2, Github, MessageSquare, Phone } from "lucide-react"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarHeader,
+} from "@/components/ui/sidebar"
+
+const items = [
+  {
+    title: "Sobre",
+    url: "#sobre",
+    icon: User,
+  },
+  {
+    title: "Tecnologias",
+    url: "#tecnologias",
+    icon: Code2,
+  },
+  {
+    title: "Projetos",
+    url: "#projetos",
+    icon: Search,
+  },
+  {
+    title: "GitHub",
+    url: "#github",
+    icon: Github,
+  },
+  {
+    title: "Contato",
+    url: "#contato",
+    icon: MessageSquare,
+  },
+]
+
+export function AppSidebar() {
+  return (
+    <Sidebar collapsible="icon">
+      <SidebarHeader className="p-4">
+        <div className="flex items-center gap-2 font-semibold">
+          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
+            CE
+          </div>
+          <span className="group-data-[collapsible=icon]:hidden">Portfolio</span>
+        </div>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild tooltip={item.title}>
+                    <a href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  )
+}
