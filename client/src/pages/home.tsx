@@ -10,6 +10,7 @@ import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useRef, useEffect, useState } from "react";
+import { ClickRipple } from "@/components/click-ripple";
 
 import perfilImg from "@assets/perfil_1768243015797.png";
 import statsImg from "@assets/stats_1768243015798.png";
@@ -90,23 +91,21 @@ const projects = [
 ];
 
 function CascadeReveal({ images, isRecruiter = false }: { images: string[], isRecruiter?: boolean }) {
-  const [visibleIndices, setVisibleIndices] = useState<number[]>([]);
-  const refs = useRef<(HTMLDivElement | null)[]>([]);
+  const [fullyVisibleIndices, setFullyVisibleIndices] = useState<number[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const observers = refs.current.map((ref, index) => {
+    const observers = imageRefs.current.map((ref, index) => {
       if (!ref) return null;
       
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
-            // Se for o primeiro, ou se o anterior já estiver visível (cascata controlada pelo scroll)
-            // Na verdade o requisito diz "A próxima imagem NÃO aparece até que a anterior esteja 100% visível na viewport"
-            // Isso implica que o usuário precisa rolar o suficiente para ver a anterior antes da próxima carregar.
-            setVisibleIndices(prev => entry.intersectionRatio >= 0.99 ? [...new Set([...prev, index])] : prev);
+          if (entry.intersectionRatio >= 0.99) {
+            setFullyVisibleIndices(prev => [...new Set([...prev, index])]);
           }
         },
-        { threshold: 0.99 } // 100% visível
+        { threshold: 1.0 }
       );
       
       observer.observe(ref);
@@ -117,25 +116,38 @@ function CascadeReveal({ images, isRecruiter = false }: { images: string[], isRe
   }, []);
 
   return (
-    <div className={isRecruiter ? "space-y-4" : "grid grid-cols-2 lg:grid-cols-4 gap-4"}>
+    <div className={isRecruiter ? "space-y-6" : "grid grid-cols-2 lg:grid-cols-4 gap-6"}>
       {images.map((img, i) => {
-        const canShow = i === 0 || visibleIndices.includes(i - 1);
-        
+        const isPreviousFullyVisible = i === 0 || fullyVisibleIndices.includes(i - 1);
+        const shouldAnimate = isPreviousFullyVisible;
+
         return (
           <motion.div
             key={i}
-            ref={el => refs.current[i] = el}
-            initial={{ opacity: 0, y: 20 }}
-            animate={canShow && visibleIndices.includes(i) ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            ref={el => imageRefs.current[i] = el}
+            initial={{ opacity: 0, y: 24 }}
+            animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className={`overflow-hidden rounded-xl border border-border group relative ${!isRecruiter && (i === 1 || i === 2) ? 'row-span-2' : ''}`}
+            whileHover={{ scale: 1.02 }}
+            className={`
+              relative overflow-hidden rounded-xl group
+              ${!isRecruiter && (i === 1 || i === 2) ? 'row-span-2' : ''}
+              before:absolute before:inset-0 before:z-10 before:rounded-xl before:shadow-[0_0_40px_rgba(0,0,0,0.1)] before:pointer-events-none
+              dark:before:shadow-[0_0_40px_rgba(255,255,255,0.05)]
+            `}
+            style={{
+              maskImage: 'radial-gradient(circle, black 80%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(circle, black 80%, transparent 100%)'
+            }}
           >
-            <img 
-              src={img} 
-              alt={`Reveal ${i + 1}`}
-              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            <div className="relative z-0 w-full h-full transition-shadow duration-300 group-hover:shadow-2xl">
+              <img 
+                src={img} 
+                alt={`Reveal ${i + 1}`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            </div>
           </motion.div>
         );
       })}
@@ -186,6 +198,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
+      <ClickRipple />
       {/* Hero Section */}
       <section className="pt-20 pb-20 px-6" data-testid="section-hero">
         <div className="max-w-6xl mx-auto">
@@ -232,7 +245,12 @@ export default function Home() {
                 </Button>
               </div>
             </RevealItem>
-            <RevealItem delay={0.2} className="relative">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative"
+            >
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20">
                 <img 
                   src={perfilImg} 
@@ -250,7 +268,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </RevealItem>
+            </motion.div>
           </div>
         </div>
       </section>

@@ -1,0 +1,128 @@
+Você é uma IA especialista em Frontend avançado, Motion Design, UX refinado e animações controladas por scroll.
+
+⚠️ ESTE PROMPT CORRIGE COMPORTAMENTOS QUE NÃO FUNCIONARAM ANTES.
+⚠️ SIGA À RISCA — NÃO SIMPLIFIQUE.
+
+---
+
+## 1️⃣ LIFESTYLE & JORNADA — CASCATA REAL DEPENDENTE DE VISIBILIDADE
+
+### 📂 Imagens (ordem obrigatória):
+1. attached_assets/lifestyle1_1768243015795.jpeg
+2. attached_assets/lifestyle2_1768243015795.jpeg
+3. attached_assets/lifestlyle3_1768243015795.jpeg
+4. attached_assets/lifestyle4_1768243015796.jpeg
+
+---
+
+### 🎥 COMPORTAMENTO EXATO (OBRIGATÓRIO):
+
+Esta seção **NÃO pode** usar:
+- delays fixos
+- animação simultânea
+- `staggerChildren` simples
+
+### Regra absoluta de cascata:
+- A imagem 1 anima quando **entra na viewport**
+- A imagem 2 **NÃO pode iniciar** enquanto a imagem 1 **não estiver 100% visível**
+- A imagem 3 **só inicia após a imagem 2 atingir 100% de visibilidade**
+- A imagem 4 segue a mesma lógica
+
+📌 A visibilidade deve ser calculada por:
+- IntersectionObserver com `threshold: 1`
+OU
+- Controle manual de estado (`currentVisibleIndex`)
+
+⚠️ Se a imagem anterior não estiver totalmente visível, a próxima **permanece invisível**.
+
+---
+
+### 🎞️ Estilo da animação:
+- opacity: 0 → 1
+- translateY: 24px → 0
+- duração: 0.6s
+- easing: ease-out
+
+---
+
+## 2️⃣ ESTILO VISUAL DAS IMAGENS (NOVO)
+
+Adicionar **efeito de sombra difusa e bordas transparentes**, criando sensação de “fumaça / névoa” ao redor da imagem:
+
+### Requisitos:
+- Bordas suavemente transparentes (mask ou pseudo-element)
+- Sombra externa difusa
+- Nada de borda dura
+- Efeito deve parecer:
+  > imagem flutuando suavemente sobre o fundo
+
+Hover:
+- scale: 1.02
+- sombra ligeiramente mais intensa
+- transição suave
+
+---
+
+## 3️⃣ BOTÃO / EFEITO QUE ACOMPANHA O CLIQUE DO MOUSE
+
+⚠️ NÃO É UM BOTÃO FIXO.
+
+Criar um **efeito de clique global (Click Ripple / Cursor Feedback)**:
+
+### Comportamento:
+- Ao clicar em qualquer lugar da página:
+  - surge um círculo/transparência no local do clique
+  - efeito tipo ripple
+  - desaparece rapidamente (300–500ms)
+- Não interfere em cliques reais
+- Não cobre conteúdo
+- Transparente e sutil
+
+📌 Nome técnico:
+- Click ripple
+- Pointer feedback
+- Global click animation
+
+---
+
+## 4️⃣ ANIMAÇÃO DE ENTRADA — FOTO DE PERFIL
+
+Ao carregar o site:
+
+### Aplicar animação somente na **foto de perfil principal**:
+
+- Pequeno zoom-in (scale 0.95 → 1)
+- Fade-in suave
+- Leve movimento vertical
+- Duração curta (0.6–0.8s)
+- Executa apenas uma vez
+
+Objetivo:
+- Dar sensação de boas-vindas
+- Profissional
+- Nada chamativo
+
+---
+
+## 5️⃣ REGRAS IMPORTANTES (NÃO QUEBRAR)
+- Não animar tudo ao mesmo tempo
+- Não usar delays artificiais
+- Tudo deve ser:
+  - controlado por scroll
+  - controlado por estado
+- Estilo:
+  - elegante
+  - sério
+  - inspirado no GitHub
+- Performance priorizada
+
+---
+
+## 📌 RESULTADO FINAL ESPERADO
+- Cascata real perceptível
+- Usuário sente progressão visual
+- Imagens “respiram” no layout
+- Interações refinadas
+- Portfólio com padrão premium
+
+Implemente exatamente conforme descrito.
