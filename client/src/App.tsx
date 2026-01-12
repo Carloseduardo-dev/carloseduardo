@@ -33,13 +33,13 @@ function App() {
             <div className="flex h-screen w-full overflow-hidden">
               <AppSidebar />
               <div className="flex flex-col flex-1 min-w-0">
-                <header className="flex items-center justify-between p-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
+                <header className="flex items-center justify-between p-2 border-b bg-transparent sticky top-0 z-40">
                   <SidebarTrigger data-testid="button-sidebar-toggle" />
                   <div className="flex items-center gap-2">
                     <ThemeToggle />
                   </div>
                 </header>
-                <main className="flex-1 overflow-y-auto scroll-smooth">
+                <main className="flex-1 overflow-y-auto scroll-smooth bg-white/55 dark:bg-black/35 backdrop-blur-[8px]">
                   <Router />
                 </main>
               </div>

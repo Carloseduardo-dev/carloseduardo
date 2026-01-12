@@ -242,7 +242,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-screen bg-transparent relative">
       <InteractiveBackground />
       
       {/* Hero Section */}
@@ -291,7 +291,7 @@ export default function Home() {
       </section>
 
       {/* Sobre Section */}
-      <section id="sobre" className="py-20 px-6 bg-card/50" data-testid="section-sobre">
+      <section id="sobre" className="py-20 px-6 bg-transparent" data-testid="section-sobre">
         <div className="max-w-6xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Sobre <span className="text-gradient">Mim</span></h2>
@@ -350,7 +350,7 @@ export default function Home() {
       </section>
 
       {/* Projetos Section */}
-      <section id="projetos" className="py-20 px-6 bg-card/50" data-testid="section-projetos">
+      <section id="projetos" className="py-20 px-6 bg-transparent" data-testid="section-projetos">
         <div className="max-w-6xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Experiência & <span className="text-gradient">Projetos</span></h2>
@@ -409,7 +409,7 @@ export default function Home() {
       </section>
 
       {/* Recrutadores Section */}
-      <section className="py-20 px-6 bg-card/50" data-testid="section-social-proof">
+      <section className="py-20 px-6 bg-transparent" data-testid="section-social-proof">
         <div className="max-w-6xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Reconhecimento & <span className="text-gradient">Oportunidades</span></h2>
@@ -444,7 +444,7 @@ export default function Home() {
       </section>
 
       {/* Vamos Conversar? Section */}
-      <section id="contato" className="py-20 px-6 bg-card/50" data-testid="section-contato">
+      <section id="contato" className="py-20 px-6 bg-transparent" data-testid="section-contato">
         <div className="max-w-4xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Vamos <span className="text-gradient">Conversar?</span></h2>
