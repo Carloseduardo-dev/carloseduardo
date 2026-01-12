@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Github, Linkedin, Instagram, Mail, ExternalLink, MapPin, Code2, Database, Cloud, Terminal, Zap, MessageCircle, Phone, Send, ExternalLink as ExternalIcon } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, ExternalLink, MapPin, Code2, Database, Cloud, Terminal, Zap, MessageCircle, Phone, Send, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,7 +8,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { Card } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 import perfilImg from "@assets/perfil_1768243015797.png";
@@ -43,15 +42,6 @@ const contactFormSchema = z.object({
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
-
-const revealAnimation = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-};
 
 const technologies = [
   { name: "TypeScript", icon: tsIcon },
@@ -137,24 +127,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Ripple Effect Support */}
-      <style>{`
-        .ripple {
-          position: absolute;
-          border-radius: 50%;
-          transform: scale(0);
-          animation: ripple 0.6s linear;
-          background-color: rgba(var(--primary), 0.3);
-          pointer-events: none;
-        }
-        @keyframes ripple {
-          to {
-            transform: scale(4);
-            opacity: 0;
-          }
-        }
-      `}</style>
-
       {/* Hero Section */}
       <section className="pt-20 pb-20 px-6" data-testid="section-hero">
         <div className="max-w-6xl mx-auto">
@@ -451,7 +423,7 @@ export default function Home() {
                     <img 
                       src={img} 
                       alt={`Lifestyle ${i + 1}`}
-                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-102"
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                   </div>
