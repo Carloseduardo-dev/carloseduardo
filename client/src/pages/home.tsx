@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ExternalLink, MapPin, Code2, Database, Cloud, Terminal, Zap, MessageCircle, Phone, Send, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -99,14 +99,11 @@ function CascadeReveal({ images, isRecruiter = false }: { images: string[], isRe
       
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
-            // Se for o primeiro, ou se o anterior já estiver visível (cascata controlada pelo scroll)
-            // Na verdade o requisito diz "A próxima imagem NÃO aparece até que a anterior esteja 100% visível na viewport"
-            // Isso implica que o usuário precisa rolar o suficiente para ver a anterior antes da próxima carregar.
-            setVisibleIndices(prev => entry.intersectionRatio >= 0.99 ? [...new Set([...prev, index])] : prev);
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.99) {
+            setVisibleIndices(prev => [...new Set([...prev, index])]);
           }
         },
-        { threshold: 0.99 } // 100% visível
+        { threshold: 0.99 }
       );
       
       observer.observe(ref);
@@ -117,7 +114,7 @@ function CascadeReveal({ images, isRecruiter = false }: { images: string[], isRe
   }, []);
 
   return (
-    <div className={isRecruiter ? "space-y-4" : "grid grid-cols-2 lg:grid-cols-4 gap-4"}>
+    <div className={isRecruiter ? "space-y-4" : "flex flex-col gap-12 w-full max-w-3xl mx-auto"}>
       {images.map((img, i) => {
         const canShow = i === 0 || visibleIndices.includes(i - 1);
         
@@ -125,17 +122,19 @@ function CascadeReveal({ images, isRecruiter = false }: { images: string[], isRe
           <motion.div
             key={i}
             ref={el => refs.current[i] = el}
-            initial={{ opacity: 0, y: 20 }}
-            animate={canShow && visibleIndices.includes(i) ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={canShow && visibleIndices.includes(i) ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className={`overflow-hidden rounded-xl border border-border group relative ${!isRecruiter && (i === 1 || i === 2) ? 'row-span-2' : ''}`}
+            className={`w-full overflow-hidden rounded-xl border border-border/40 group relative shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)]`}
           >
+            <div className="absolute inset-0 rounded-xl pointer-events-none ring-1 ring-inset ring-primary/5 group-hover:ring-primary/10 transition-all duration-500" />
+            <div className="absolute inset-0 bg-primary/5 blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10" />
             <img 
               src={img} 
-              alt={`Reveal ${i + 1}`}
-              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+              alt={`Lifestyle ${i + 1}`}
+              className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-[1.01]"
             />
-            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
           </motion.div>
         );
       })}
@@ -462,12 +461,12 @@ export default function Home() {
 
       {/* Lifestyle Section */}
       <section className="py-20 px-6" data-testid="section-lifestyle">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto text-center">
           <RevealItem>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Lifestyle & <span className="text-gradient">Jornada</span>
             </h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
+            <p className="text-muted-foreground mb-16 max-w-3xl mx-auto">
               Além do código, acredito que a construção de uma carreira sólida envolve experiências, conexões, aprendizado contínuo e presença em ambientes que impulsionam crescimento profissional e pessoal.
             </p>
             
