@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Github, Linkedin, Mail, ExternalLink, MapPin, Code2, Database, Cloud, Terminal, Zap, MessageCircle, Phone, Send, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -89,13 +89,69 @@ const projects = [
   }
 ];
 
+function HeroAvatar() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+  const isVisible = useInView(containerRef);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let rafId: number;
+    const updateParallax = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const scrollY = window.scrollY;
+        // Leve parallax: movimenta suavemente translateY baseado no scroll
+        // Limitado a +-30px conforme solicitado
+        const movement = Math.max(-30, Math.min(30, scrollY * 0.1));
+        setOffset(movement);
+      }
+      rafId = requestAnimationFrame(updateParallax);
+    };
+
+    rafId = requestAnimationFrame(updateParallax);
+    return () => cancelAnimationFrame(rafId);
+  }, [isVisible]);
+
+  return (
+    <motion.div 
+      ref={containerRef}
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut", once: true }}
+      className="relative"
+    >
+      <motion.div 
+        style={{ y: offset, willChange: "transform" }}
+        className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 shadow-[0_0_50px_rgba(0,0,0,0.1)] dark:shadow-[0_0_50px_rgba(255,255,255,0.05)]"
+      >
+        <img 
+          src={perfilImg} 
+          alt="Carlos Eduardo Ferreira" 
+          className="w-full h-full object-cover"
+          data-testid="hero-avatar"
+        />
+      </motion.div>
+      <div className="absolute -bottom-4 -right-4 bg-card border border-border rounded-xl px-4 py-2 shadow-lg">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">🚀</span>
+          <div>
+            <p className="text-xs text-muted-foreground">Experiência em</p>
+            <p className="text-sm font-semibold">Startups</p>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 function ParallaxImage({ src, alt, className = "" }: { src: string, alt: string, className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
   const [isLowPower, setIsLowPower] = useState(false);
 
   useEffect(() => {
-    // Basic check for low power / reduced motion
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setIsLowPower(mediaQuery.matches || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
     
@@ -107,13 +163,10 @@ function ParallaxImage({ src, alt, className = "" }: { src: string, alt: string,
       const rect = ref.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       
-      // Only animate if near viewport
       if (rect.top < viewportHeight && rect.bottom > 0) {
         const center = rect.top + rect.height / 2;
         const viewportCenter = viewportHeight / 2;
         const distanceFromCenter = center - viewportCenter;
-        
-        // Multiplier for intensity: lower for mobile/reduced
         const intensity = window.innerWidth < 768 ? 0.03 : 0.08;
         setOffset(distanceFromCenter * -intensity);
       }
@@ -130,7 +183,6 @@ function ParallaxImage({ src, alt, className = "" }: { src: string, alt: string,
 
   return (
     <div ref={ref} className={`relative overflow-hidden rounded-xl border border-border group shadow-lg shadow-black/5 ${className}`}>
-      {/* Fog effect overlay */}
       <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-background/10 via-transparent to-background/10 opacity-40" />
       <div className="absolute inset-0 z-10 pointer-events-none ring-1 ring-inset ring-white/10" />
       
@@ -289,30 +341,12 @@ export default function Home() {
                 </Button>
               </div>
             </RevealItem>
-            <RevealItem delay={0.2} className="relative">
-              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20">
-                <img 
-                  src={perfilImg} 
-                  alt="Carlos Eduardo Ferreira" 
-                  className="w-full h-full object-cover"
-                  data-testid="hero-avatar"
-                />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-card border border-border rounded-xl px-4 py-2 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">🚀</span>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Experiência em</p>
-                    <p className="text-sm font-semibold">Startups</p>
-                  </div>
-                </div>
-              </div>
-            </RevealItem>
+            <HeroAvatar />
           </div>
         </div>
       </section>
 
-      {/* Sobre Section */}
+      {/* Sobre Mim */}
       <section id="sobre" className="py-20 px-6 bg-card/50" data-testid="section-sobre">
         <div className="max-w-6xl mx-auto">
           <RevealItem>
@@ -533,7 +567,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vamos Conversar? Section */}
+      {/* Contato Section */}
       <section id="contato" className="py-20 px-6 bg-card/50" data-testid="section-contato">
         <div className="max-w-4xl mx-auto">
           <RevealItem>

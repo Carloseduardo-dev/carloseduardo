@@ -1,0 +1,81 @@
+Ajustar o site existente aplicando APENAS os efeitos abaixo, sem alterar layout, textos ou estrutura:
+
+────────────────────────────────────
+1. PARALLAX NA FOTO DE PERFIL (HERO)
+────────────────────────────────────
+
+Aplicar um parallax elegante e profissional na foto de perfil principal do site:
+
+- A imagem de perfil deve reagir ao scroll vertical
+- Movimento suave usando translateY
+- Intensidade leve (efeito premium, não exagerado)
+- Movimento mais lento que o scroll (sensação de profundidade)
+
+Regras técnicas:
+- Usar requestAnimationFrame
+- Controlar movimento via window.scrollY
+- Limitar deslocamento máximo (ex: ±30px)
+- Usar will-change: transform
+- Parallax só ativo enquanto a imagem estiver visível (IntersectionObserver)
+
+Extras visuais:
+- Leve sombra difusa atrás da imagem
+- Bordas suaves
+- Animação sutil de entrada ao carregar a página (fade + translateY)
+- A animação deve acontecer apenas uma vez
+
+⚠️ Importante:
+- Não distorcer a imagem
+- Não aplicar zoom agressivo
+- Manter aspecto profissional e sério
+
+────────────────────────────────────
+2. FUNDO COM GRID ESTILO NEXT.JS
+────────────────────────────────────
+
+Aplicar um fundo global inspirado no site oficial do Next.js:
+
+Características do fundo:
+- Grid sutil (linhas finas ou pontos)
+- Baixo contraste
+- Elegante e discreto
+- Não competir com o conteúdo
+
+Implementação:
+- Criar o grid via CSS (background-image)
+- Usar linear-gradient ou radial-gradient
+- Não usar imagens externas
+
+Comportamento:
+- Grid fixo no fundo
+- Conteúdo rola normalmente sobre ele
+- Grid não se move com o scroll
+
+Temas:
+- Dark mode:
+  - Grid em cinza bem escuro
+  - Fundo preto ou quase preto
+- Light mode:
+  - Grid em cinza claro
+  - Fundo branco ou off-white
+
+Responsividade:
+- Grid deve se adaptar a telas grandes e pequenas
+- Não poluir mobile
+- Reduzir opacidade em telas menores
+
+────────────────────────────────────
+3. QUALIDADE FINAL
+────────────────────────────────────
+
+- Garantir performance alta
+- Nenhum impacto negativo no scroll
+- Nenhum layout shift
+- Manter identidade visual inspirada em GitHub / Next.js
+- Código limpo, moderno e escalável
+
+⚠️ Não alterar:
+- Sidebar
+- Sessões existentes
+- Textos
+- Estrutura HTML
