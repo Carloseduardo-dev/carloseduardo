@@ -1,0 +1,105 @@
+⚠️ ATENÇÃO ESPECIAL:
+As animações descritas abaixo **NÃO são animações simultâneas**.
+Elas devem seguir um **efeito cascata controlado pelo scroll**, onde **cada imagem depende da anterior**.
+
+---
+
+## 🎯 OBJETIVO DO AJUSTE
+Criar um **efeito cascata real**, onde:
+- As imagens surgem **uma por vez**
+- A próxima imagem **NÃO aparece** até que a anterior esteja **100% visível na viewport**
+- O efeito acontece **conforme o usuário desce o scroll**
+- Nada automático, nada simultâneo
+
+---
+
+## 1️⃣ LIFESTYLE & JORNADA — EFEITO CASCATA REAL
+
+### 📂 Imagens (ordem obrigatória):
+Usar **exclusivamente** estas imagens e **nesta ordem lógica de exibição**:
+
+1. `attached_assets/lifestyle1_1768243015795.jpeg`
+2. `attached_assets/lifestyle2_1768243015795.jpeg`
+3. `attached_assets/lifestlyle3_1768243015795.jpeg`
+4. `attached_assets/lifestyle4_1768243015796.jpeg`
+
+---
+
+### 🎥 COMPORTAMENTO DA ANIMAÇÃO (OBRIGATÓRIO):
+
+- Utilizar **Intersection Observer** ou **scroll-trigger** equivalente
+- Cada imagem deve:
+  - Iniciar invisível (`opacity: 0`)
+  - Levemente deslocada para baixo (`translateY(20px)`)
+
+#### Regra de cascata:
+- A imagem 1 surge quando entra na viewport
+- A imagem 2 **só começa a surgir quando a imagem 1 estiver completamente visível**
+- A imagem 3 **só surge após a imagem 2 estar 100% visível**
+- A imagem 4 segue a mesma lógica
+
+⚠️ NÃO usar delay fixo.
+⚠️ NÃO animar todas juntas.
+⚠️ NÃO permitir que duas imagens animem ao mesmo tempo.
+
+---
+
+### 🎨 Estilo visual:
+- Fade-in suave
+- Slide sutil bottom → top
+- Hover:
+  - `scale(1.02)`
+  - sombra leve
+- Sensação de galeria editorial premium
+- Muito espaço em branco
+
+---
+
+## 2️⃣ MENSAGENS DE RECRUTADORES — MESMO EFEITO CASCATA
+
+### 📂 Imagens permitidas (somente estas):
+❌ NÃO usar:
+- `attached_assets/message-vagas_1768243015797.png`
+
+✅ Usar apenas:
+1. `attached_assets/message-vaga1_1768243015796.png`
+2. `attached_assets/message-vaga2_1768243015796.png`
+3. `attached_assets/message-vaga3_1768243015797.png`
+
+---
+
+### 🎥 COMPORTAMENTO:
+- Exatamente o mesmo efeito cascata da seção Lifestyle
+- Uma imagem por vez
+- A próxima só surge quando a anterior estiver completamente visível
+- Controlado pelo scroll
+- Nada simultâneo
+- Nada automático
+
+---
+
+## 3️⃣ REGRAS GERAIS (IMPORTANTÍSSIMO)
+- Não usar animações globais
+- Não usar delays estáticos
+- Não animar por tempo
+- Tudo deve depender da **posição do scroll**
+- Animações devem ser:
+  - Leves
+  - Elegantes
+  - Profissionais
+- Inspirado em:
+  - GitHub
+  - Portfólios editoriais modernos
+  - UX premium
+
+---
+
+## 📌 RESULTADO ESPERADO
+- Usuário sente que:
+  > “As imagens estão sendo reveladas conforme avanço na página”
+- Narrativa visual clara
+- Sensação de progressão
+- Nenhuma poluição visual
+- Experiência fluida e sofisticada
+
+Implemente exatamente conforme descrito.

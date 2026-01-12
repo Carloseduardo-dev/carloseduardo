@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Github, Linkedin, Instagram, Mail, ExternalLink, MapPin, Code2, Database, Cloud, Terminal, Zap, MessageCircle, Phone, Send, Users } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { Github, Linkedin, Mail, ExternalLink, MapPin, Code2, Database, Cloud, Terminal, Zap, MessageCircle, Phone, Send, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useRef, useEffect, useState } from "react";
 
 import perfilImg from "@assets/perfil_1768243015797.png";
 import statsImg from "@assets/stats_1768243015798.png";
@@ -17,7 +18,11 @@ import activityImg from "@assets/activity_overview_1768243015793.png";
 import pullSharkImg from "@assets/pull-shark-achievements-github_1768243015798.png";
 import quickdrawImg from "@assets/quickdraw-achievements-github_1768243015798.png";
 import linkedinProfileImg from "@assets/perfil-linkedin_1768243015798.png";
-import messageVagasImg from "@assets/message-vagas_1768243015797.png";
+
+import messageVaga1 from "@assets/message-vaga1_1768243015796.png";
+import messageVaga2 from "@assets/message-vaga2_1768243015796.png";
+import messageVaga3 from "@assets/message-vaga3_1768243015797.png";
+
 import lifestyle1Img from "@assets/lifestyle1_1768243015795.jpeg";
 import lifestyle2Img from "@assets/lifestyle2_1768243015795.jpeg";
 import lifestyle3Img from "@assets/lifestlyle3_1768243015795.jpeg";
@@ -83,6 +88,60 @@ const projects = [
     type: "Infrastructure"
   }
 ];
+
+function CascadeReveal({ images, isRecruiter = false }: { images: string[], isRecruiter?: boolean }) {
+  const [visibleIndices, setVisibleIndices] = useState<number[]>([]);
+  const refs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observers = refs.current.map((ref, index) => {
+      if (!ref) return null;
+      
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            // Se for o primeiro, ou se o anterior já estiver visível (cascata controlada pelo scroll)
+            // Na verdade o requisito diz "A próxima imagem NÃO aparece até que a anterior esteja 100% visível na viewport"
+            // Isso implica que o usuário precisa rolar o suficiente para ver a anterior antes da próxima carregar.
+            setVisibleIndices(prev => entry.intersectionRatio >= 0.99 ? [...new Set([...prev, index])] : prev);
+          }
+        },
+        { threshold: 0.99 } // 100% visível
+      );
+      
+      observer.observe(ref);
+      return observer;
+    });
+
+    return () => observers.forEach(o => o?.disconnect());
+  }, []);
+
+  return (
+    <div className={isRecruiter ? "space-y-4" : "grid grid-cols-2 lg:grid-cols-4 gap-4"}>
+      {images.map((img, i) => {
+        const canShow = i === 0 || visibleIndices.includes(i - 1);
+        
+        return (
+          <motion.div
+            key={i}
+            ref={el => refs.current[i] = el}
+            initial={{ opacity: 0, y: 20 }}
+            animate={canShow && visibleIndices.includes(i) ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className={`overflow-hidden rounded-xl border border-border group relative ${!isRecruiter && (i === 1 || i === 2) ? 'row-span-2' : ''}`}
+          >
+            <img 
+              src={img} 
+              alt={`Reveal ${i + 1}`}
+              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
 
 function RevealItem({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) {
   return (
@@ -387,18 +446,14 @@ export default function Home() {
                 </div>
               </RevealItem>
               <div className="space-y-4">
-                <RevealItem delay={0.2}>
-                  <div className="flex items-center gap-3 mb-6">
-                    <MessageCircle className="w-6 h-6 text-primary" />
-                    <h3 className="text-xl font-semibold">Mensagens de Recrutadores</h3>
-                  </div>
-                  <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="recruiter-messages">
-                    <img src={messageVagasImg} alt="Recruiter Messages" className="w-full h-auto rounded-lg" />
-                  </div>
-                  <p className="text-sm text-muted-foreground text-center pt-4">
-                    Convites para processos seletivos e indicações profissionais
-                  </p>
-                </RevealItem>
+                <div className="flex items-center gap-3 mb-6">
+                  <MessageCircle className="w-6 h-6 text-primary" />
+                  <h3 className="text-xl font-semibold">Mensagens de Recrutadores</h3>
+                </div>
+                <CascadeReveal images={[messageVaga1, messageVaga2, messageVaga3]} isRecruiter />
+                <p className="text-sm text-muted-foreground text-center pt-4">
+                  Convites para processos seletivos e indicações profissionais
+                </p>
               </div>
             </div>
           </RevealItem>
@@ -416,20 +471,7 @@ export default function Home() {
               Além do código, acredito que a construção de uma carreira sólida envolve experiências, conexões, aprendizado contínuo e presença em ambientes que impulsionam crescimento profissional e pessoal.
             </p>
             
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {[lifestyle1Img, lifestyle2Img, lifestyle3Img, lifestyle4Img].map((img, i) => (
-                <RevealItem key={i} delay={i * 0.2}>
-                  <div className={`overflow-hidden rounded-xl border border-border group relative ${i === 1 || i === 2 ? 'row-span-2' : ''}`} data-testid={`lifestyle-${i + 1}`}>
-                    <img 
-                      src={img} 
-                      alt={`Lifestyle ${i + 1}`}
-                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                  </div>
-                </RevealItem>
-              ))}
-            </div>
+            <CascadeReveal images={[lifestyle1Img, lifestyle2Img, lifestyle3Img, lifestyle4Img]} />
           </RevealItem>
         </div>
       </section>
