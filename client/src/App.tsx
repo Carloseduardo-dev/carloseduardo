@@ -9,6 +9,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { InteractiveBackground } from "@/components/interactive-background"
 
 function Router() {
   return (
@@ -29,17 +30,18 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
         <TooltipProvider>
+          <InteractiveBackground />
           <SidebarProvider style={style as React.CSSProperties}>
-            <div className="flex h-screen w-full overflow-hidden">
+            <div className="flex h-screen w-full overflow-hidden bg-transparent">
               <AppSidebar />
-              <div className="flex flex-col flex-1 min-w-0">
-                <header className="flex items-center justify-between p-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
+              <div className="flex flex-col flex-1 min-w-0 bg-transparent">
+                <header className="flex items-center justify-between p-2 border-b bg-background/50 backdrop-blur-md sticky top-0 z-40">
                   <SidebarTrigger data-testid="button-sidebar-toggle" />
                   <div className="flex items-center gap-2">
                     <ThemeToggle />
                   </div>
                 </header>
-                <main className="flex-1 overflow-y-auto scroll-smooth">
+                <main className="flex-1 overflow-y-auto scroll-smooth bg-transparent">
                   <Router />
                 </main>
               </div>

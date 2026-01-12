@@ -89,35 +89,6 @@ const projects = [
   }
 ];
 
-function InteractiveBackground() {
-  const mouseX = useSpring(0, { stiffness: 50, damping: 20 });
-  const mouseY = useSpring(0, { stiffness: 50, damping: 20 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
-
-  const background = useTransform(
-    [mouseX, mouseY],
-    ([x, y]) => `radial-gradient(circle at ${x}px ${y}px, hsl(var(--primary) / 0.15) 0%, transparent 80%)`
-  );
-
-  return (
-    <motion.div 
-      className="fixed inset-0 -z-10 pointer-events-none transition-colors duration-500"
-      style={{ background }}
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,hsl(var(--background))_100%)]" />
-      <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]" />
-    </motion.div>
-  );
-}
-
 function ProfileParallax({ src }: { src: string }) {
   const mouseX = useSpring(0, { stiffness: 100, damping: 30 });
   const mouseY = useSpring(0, { stiffness: 100, damping: 30 });
@@ -242,9 +213,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background relative">
-      <InteractiveBackground />
-      
+    <div className="min-h-screen bg-transparent relative">
       {/* Hero Section */}
       <section className="pt-20 pb-20 px-6" data-testid="section-hero">
         <div className="max-w-6xl mx-auto">
@@ -291,7 +260,7 @@ export default function Home() {
       </section>
 
       {/* Sobre Section */}
-      <section id="sobre" className="py-20 px-6 bg-card/50" data-testid="section-sobre">
+      <section id="sobre" className="py-20 px-6" data-testid="section-sobre">
         <div className="max-w-6xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Sobre <span className="text-gradient">Mim</span></h2>
@@ -350,7 +319,7 @@ export default function Home() {
       </section>
 
       {/* Projetos Section */}
-      <section id="projetos" className="py-20 px-6 bg-card/50" data-testid="section-projetos">
+      <section id="projetos" className="py-20 px-6" data-testid="section-projetos">
         <div className="max-w-6xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Experiência & <span className="text-gradient">Projetos</span></h2>
@@ -409,7 +378,7 @@ export default function Home() {
       </section>
 
       {/* Recrutadores Section */}
-      <section className="py-20 px-6 bg-card/50" data-testid="section-social-proof">
+      <section className="py-20 px-6" data-testid="section-social-proof">
         <div className="max-w-6xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Reconhecimento & <span className="text-gradient">Oportunidades</span></h2>
@@ -444,7 +413,7 @@ export default function Home() {
       </section>
 
       {/* Vamos Conversar? Section */}
-      <section id="contato" className="py-20 px-6 bg-card/50" data-testid="section-contato">
+      <section id="contato" className="py-20 px-6" data-testid="section-contato">
         <div className="max-w-4xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Vamos <span className="text-gradient">Conversar?</span></h2>
