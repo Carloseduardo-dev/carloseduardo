@@ -11,34 +11,34 @@ import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useRef, useEffect, useState } from "react";
 
-import perfilImg from "@assets/perfil_1768243015797.png";
-import statsImg from "@assets/stats_1768243015798.png";
-import contributionsImg from "@assets/contributions_1768243015794.png";
-import activityImg from "@assets/activity_overview_1768243015793.png";
-import pullSharkImg from "@assets/pull-shark-achievements-github_1768243015798.png";
-import quickdrawImg from "@assets/quickdraw-achievements-github_1768243015798.png";
-import linkedinProfileImg from "@assets/perfil-linkedin_1768243015798.png";
+import perfilImg from "@/assets/profile/perfil.png";
+import statsImg from "@/assets/github/stats.png";
+import contributionsImg from "@/assets/github/contributions.png";
+import activityImg from "@/assets/github/activity-overview.png";
+import pullSharkImg from "@/assets/github/pull-shark.png";
+import quickdrawImg from "@/assets/github/quickdraw.png";
+import linkedinProfileImg from "@/assets/profile/perfil-linkedin.png";
 
-import messageVaga1 from "@assets/message-vaga1_1768243015796.png";
-import messageVaga2 from "@assets/message-vaga2_1768243015796.png";
-import messageVaga3 from "@assets/message-vaga3_1768243015797.png";
+import messageVaga1 from "@/assets/recruiters/message-vaga1.png";
+import messageVaga2 from "@/assets/recruiters/message-vaga2.png";
+import messageVaga3 from "@/assets/recruiters/message-vaga3.png";
 
-import lifestyle1Img from "@assets/lifestyle1_1768243015795.jpeg";
-import lifestyle2Img from "@assets/lifestyle2_1768243015795.jpeg";
-import lifestyle3Img from "@assets/lifestlyle3_1768243015795.jpeg";
-import lifestyle4Img from "@assets/lifestyle4_1768243015796.jpeg";
+import lifestyle1Img from "@/assets/lifestyle/lifestyle1.jpeg";
+import lifestyle2Img from "@/assets/lifestyle/lifestyle2.jpeg";
+import lifestyle3Img from "@/assets/lifestyle/lifestyle3.jpeg";
+import lifestyle4Img from "@/assets/lifestyle/lifestyle4.jpeg";
 
-import tsIcon from "@assets/typescript_1768245632541.png";
-import jsIcon from "@assets/javascript_1768245632534.png";
-import reactIcon from "@assets/react_1768245632540.png";
-import nextIcon from "@assets/next_1768245632538.png";
-import firebaseIcon from "@assets/firebase_1768245632531.png";
-import mysqlIcon from "@assets/mysql_1768245632535.png";
-import gitIcon from "@assets/git_1768245632532.png";
-import n8nIcon from "@assets/n8n_1768245632537.png";
-import vscodeIcon from "@assets/vscode_1768245632542.png";
-import cssIcon from "@assets/css_1768245632528.png";
-import htmlIcon from "@assets/html_1768245632533.png";
+import tsIcon from "@/assets/tech/typescript.png";
+import jsIcon from "@/assets/tech/javascript.png";
+import reactIcon from "@/assets/tech/react.png";
+import nextIcon from "@/assets/tech/next.png";
+import firebaseIcon from "@/assets/tech/firebase.png";
+import mysqlIcon from "@/assets/tech/mysql.png";
+import gitIcon from "@/assets/tech/git.png";
+import n8nIcon from "@/assets/tech/n8n.png";
+import vscodeIcon from "@/assets/tech/vscode.png";
+import cssIcon from "@/assets/tech/css.png";
+import htmlIcon from "@/assets/tech/html.png";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
