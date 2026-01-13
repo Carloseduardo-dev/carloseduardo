@@ -33,7 +33,7 @@ function App() {
         <TooltipProvider>
           <InteractiveBackground />
           <SidebarProvider style={style as React.CSSProperties}>
-            <div className="flex h-screen w-full overflow-hidden bg-transparent">
+            <div className="flex h-screen w-full overflow-hidden bg-transparent bg-grid">
               <AppSidebar />
               <div className="flex flex-col flex-1 min-w-0 bg-transparent">
                 <header className="flex items-center justify-between p-2 border-b bg-background/50 backdrop-blur-md sticky top-0 z-40">
