@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useRef, useEffect, useState } from "react";
 
+import { GitHubSnake } from "@/components/github-snake";
 import perfilImg from "@/assets/profile/perfil.png";
 import statsImg from "@/assets/github/stats.png";
 import contributionsImg from "@/assets/github/contributions.png";
@@ -363,7 +364,7 @@ export default function Home() {
               </RevealItem>
             </div>
             <RevealItem delay={0.3}>
-              <div className="bg-card border border-border rounded-xl p-4 overflow-hidden mb-8" data-testid="github-contributions"><img src={contributionsImg} alt="Contributions" className="w-full h-auto rounded-lg" /></div>
+              <GitHubSnake />
             </RevealItem>
             <div className="flex flex-wrap justify-center gap-6">
               <RevealItem delay={0.4}>
