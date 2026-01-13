@@ -14,7 +14,6 @@ import { useRef, useEffect, useState } from "react";
 import { GitHubSnake } from "@/components/github-snake";
 import perfilImg from "@/assets/profile/perfil.png";
 import statsImg from "@/assets/github/stats.png";
-import contributionsImg from "@/assets/github/contributions.png";
 import activityImg from "@/assets/github/activity-overview.png";
 import pullSharkImg from "@/assets/github/pull-shark.png";
 import quickdrawImg from "@/assets/github/quickdraw.png";
