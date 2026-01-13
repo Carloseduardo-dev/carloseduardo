@@ -10,6 +10,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { InteractiveBackground } from "@/components/interactive-background"
+import React from "react";
 
 function Router() {
   return (
