@@ -79,17 +79,19 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased bg-grid;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
   html {
     scroll-behavior: smooth;
   }
   /* Custom background utilities */
-  .bg-grid-global {
-    background-image: linear-gradient(to right, rgba(128, 128, 128, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
-    background-size: 48px 48px;
+  .bg-grid {
+    background-image: 
+      linear-gradient(to right, hsl(var(--border) / 0.2) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.2) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center center;
   }
 }
 
