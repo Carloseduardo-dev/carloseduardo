@@ -72,11 +72,11 @@ const projects = [
   {
     title: "Dashboard Analítico",
     description: "Painel de controle com métricas em tempo real, visualização de dados e relatórios automatizados.",
-    stack: ["Next.js", "TypeScript", "Recharts", "PostgreSQL"],
+    stack: ["Next.js", "TypeScript", "Recharts", "Firebase"],
     type: "Analytics"
   },
   {
-    title: "Automações Empresariais",
+    title: "Automações Profissionais",
     description: "Workflows automatizados para processos internos, integrações com APIs e notificações inteligentes.",
     stack: ["n8n", "Node.js", "REST APIs", "Webhooks"],
     type: "Automation"
@@ -84,7 +84,7 @@ const projects = [
   {
     title: "Armazenamento Cloud",
     description: "Sistema de upload e gerenciamento de arquivos com AWS S3, otimização de imagens e CDN.",
-    stack: ["AWS S3", "Node.js", "Sharp", "CloudFront"],
+    stack: ["AWS S3", "Node.js", "Sharp", "CloudFunctions"],
     type: "Infrastructure"
   }
 ];
@@ -221,7 +221,7 @@ export default function Home() {
             <RevealItem className="flex-1 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm mb-6 border border-primary/20">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                Disponível para oportunidades
+                Disponível
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-testid="hero-title">
                 Carlos Eduardo<br />
@@ -355,18 +355,18 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">GitHub & <span className="text-gradient">Atividade Técnica</span></h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Contribuições consistentes e engajamento técnico contínuo</p>
             <div className="grid lg:grid-cols-2 gap-6 mb-8">
-              <RevealItem delay={0.1}>
+              <RevealItem delay={0.2}>
                 <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="github-stats"><img src={statsImg} alt="GitHub Stats" className="w-full h-auto rounded-lg" /></div>
               </RevealItem>
-              <RevealItem delay={0.2}>
+              <RevealItem delay={0.3}>
                 <div className="bg-card border border-border rounded-xl p-4 overflow-hidden" data-testid="github-activity"><img src={activityImg} alt="Activity Overview" className="w-full h-auto rounded-lg" /></div>
               </RevealItem>
             </div>
             <RevealItem delay={0.3}>
               <GitHubSnake />
             </RevealItem>
-            <div className="flex flex-wrap justify-center gap-6">
-              <RevealItem delay={0.4}>
+            <div className="flex flex-wrap justify-center gap-6 p-4">
+              <RevealItem delay={0.3}>
                 <div className="flex items-center gap-4 bg-card border border-border rounded-xl p-4" data-testid="github-achievement-pullshark"><img src={pullSharkImg} alt="Pull Shark Achievement" className="w-16 h-16 rounded-full" /><div><h4 className="font-semibold">Pull Shark</h4><p className="text-sm text-muted-foreground">Pull Requests merged</p></div></div>
               </RevealItem>
               <RevealItem delay={0.5}>
