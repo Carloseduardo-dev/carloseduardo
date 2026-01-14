@@ -23,22 +23,22 @@ import messageVaga1 from "@/assets/recruiters/message-vaga1.png";
 import messageVaga2 from "@/assets/recruiters/message-vaga2.png";
 import messageVaga3 from "@/assets/recruiters/message-vaga3.png";
 
-import lifestyle1Img from "@/assets/lifestyle/lifestyle1.jpeg";
+import lifestyle1Img from "@/assets/lifestyle/lifestyle1.jpg";
 import lifestyle2Img from "@/assets/lifestyle/lifestyle2.jpeg";
 import lifestyle3Img from "@/assets/lifestyle/lifestyle3.jpeg";
-import lifestyle4Img from "@/assets/lifestyle/lifestyle4.jpeg";
+import lifestyle4Img from "@/assets/lifestyle/lifestyle4.jpg";
 
-import tsIcon from "@/assets/tech/typescript.png";
-import jsIcon from "@/assets/tech/javascript.png";
-import reactIcon from "@/assets/tech/react.png";
-import nextIcon from "@/assets/tech/next.png";
-import firebaseIcon from "@/assets/tech/firebase.png";
-import mysqlIcon from "@/assets/tech/mysql.png";
-import gitIcon from "@/assets/tech/git.png";
+import tsIcon from "@/assets/tech/TypeScript.svg";
+import jsIcon from "@/assets/tech/JavaScript.svg";
+import reactIcon from "@/assets/tech/React.svg";
+import nextIcon from "@/assets/tech/Next.js.svg";
+import firebaseIcon from "@/assets/tech/Firebase.svg";
+import mysqlIcon from "@/assets/tech/MySQL.svg";
+import gitIcon from "@/assets/tech/Git.svg";
 import n8nIcon from "@/assets/tech/n8n.png";
-import vscodeIcon from "@/assets/tech/vscode.png";
-import cssIcon from "@/assets/tech/css.png";
-import htmlIcon from "@/assets/tech/html.png";
+import vscodeIcon from "@/assets/tech/VScode.svg";
+import cssIcon from "@/assets/tech/css3.svg";
+import htmlIcon from "@/assets/tech/HTML5.svg";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -460,7 +460,7 @@ export default function Home() {
       </section>
 
       <footer className="py-12 px-6 border-t border-border/50 text-center">
-        <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Carlos Eduardo Ferreira. Desenvolvido com React & Tailwind.</p>
+        <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Carlos Eduardo Ferreira.</p>
       </footer>
     </div>
   );
