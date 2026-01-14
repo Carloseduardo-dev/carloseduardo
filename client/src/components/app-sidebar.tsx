@@ -58,7 +58,7 @@ export function AppSidebar() {
     >
       <SidebarHeader className="p-4 bg-transparent">
         <div className="flex items-center gap-2 font-semibold">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
+          <div className="w-8 h-8 rounded-lg border border-border flex items-center justify-center">
             <img
               src="/favicon.svg"
               alt="Carlos Eduardo Logo"

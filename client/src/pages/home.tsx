@@ -460,7 +460,7 @@ export default function Home() {
       </section>
 
       <footer className="py-12 px-6 border-t border-border/50 text-center">
-        <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Carlos Eduardo Ferreira.</p>
+        <p className="text-sm text-muted-foreground"> Copyright © {new Date().getFullYear()}, Carlos Eduardo Ferreira.</p>
       </footer>
     </div>
   );
