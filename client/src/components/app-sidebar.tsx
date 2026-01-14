@@ -1,4 +1,15 @@
-import { Calendar, Home, Inbox, Search, Settings, User, Code2, Github, MessageSquare, Phone } from "lucide-react"
+import {
+  Calendar,
+  Home,
+  Inbox,
+  Search,
+  Settings,
+  User,
+  Code2,
+  Github,
+  MessageSquare,
+  Phone,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -9,7 +20,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 const items = [
   {
@@ -37,17 +48,26 @@ const items = [
     url: "#contato",
     icon: MessageSquare,
   },
-]
+];
 
 export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon" className="bg-background/30 backdrop-blur-md border-r">
+    <Sidebar
+      collapsible="icon"
+      className="bg-background/30 backdrop-blur-md border-r"
+    >
       <SidebarHeader className="p-4 bg-transparent">
         <div className="flex items-center gap-2 font-semibold">
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
-            CE
+            <img
+              src="/favicon.svg"
+              alt="Carlos Eduardo Logo"
+              className="w-5 h-5"
+            />
           </div>
-          <span className="group-data-[collapsible=icon]:hidden">Portfolio</span>
+          <span className="group-data-[collapsible=icon]:hidden">
+            Portfolio
+          </span>
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -70,5 +90,5 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }
