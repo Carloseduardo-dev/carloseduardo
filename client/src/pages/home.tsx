@@ -35,7 +35,7 @@ import nextIcon from "@/assets/tech/Next.js.svg";
 import firebaseIcon from "@/assets/tech/Firebase.svg";
 import mysqlIcon from "@/assets/tech/MySQL.svg";
 import gitIcon from "@/assets/tech/Git.svg";
-import n8nIcon from "@/assets/tech/n8n.png";
+import n8nIcon from "@/assets/tech/n8n.svg";
 import vscodeIcon from "@/assets/tech/VScode.svg";
 import cssIcon from "@/assets/tech/css3.svg";
 import htmlIcon from "@/assets/tech/HTML5.svg";
@@ -267,7 +267,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 text-muted-foreground leading-relaxed">
                 <p data-testid="sobre-texto-1">Sou <strong className="text-foreground">Carlos Eduardo</strong>, Software Engineer com experiência em ambientes de startup, atuando no desenvolvimento de sistemas reais em produção. Trabalho com <strong className="text-primary">TypeScript, Node.js, Next.js, React, Firebase</strong> e automações, sempre focando em soluções escaláveis, seguras e bem estruturadas.</p>
-                <p data-testid="sobre-texto-2">Já atuei na implementação de sistemas de pagamento, armazenamento em nuvem com AWS S3, dashboards analíticos, integrações com APIs de mercado e automações de processos.</p>
+                <p data-testid="sobre-texto-2">Já atuei na implementação de sistemas de pagamento, armazenamento em nuvem com AWS S3, dashboards analíticos, integrações com APIs amplamente utilizadas e automações de processos.</p>
                 <p data-testid="sobre-texto-3">Tenho perfil colaborativo, comunicação clara e foco constante em evolução técnica e qualidade de código.</p>
               </div>
               <div className="grid grid-cols-2 gap-4">

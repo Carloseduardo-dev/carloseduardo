@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">n8n logo</title>
+  <!-- Fundo laranja arredondado -->
+  <rect width="512" height="512" rx="96" ry="96" fill="#FF6A00"/>
+  <!-- Texto "n8n" centralizado em branco -->
+  <text x="50%" y="54%" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="180" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">n8n</text>
+</svg>
