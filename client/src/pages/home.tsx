@@ -678,37 +678,13 @@ export default function Home() {
               envolve experiências, conexões, aprendizado contínuo e presença em
               ambientes que impulsionam crescimento profissional e pessoal.
             </p>
-            <motion.div
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={{
-                show: {
-                  transition: {
-                    staggerChildren: 0.25,
-                  },
-                },
-              }}
-              className="grid grid-cols-2 lg:grid-cols-4 gap-4"
-            >
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[lifestyle1Img, lifestyle2Img, lifestyle3Img, lifestyle4Img].map(
                 (img, i) => (
-                  <motion.div
-                    key={i}
-                    variants={{
-                      hidden: { opacity: 0, scale: 0.85, y: 40 },
-                      show: { opacity: 1, scale: 1, y: 0 },
-                    }}
-                    transition={{ ease: "easeOut", duration: 0.6 }}
-                    className={`overflow-hidden rounded-xl border border-border group relative ${
-                      i === 1 || i === 2 ? "row-span-2" : ""
-                    }`}
-                  >
-                    <LifestyleParallax src={img} index={i} />
-                  </motion.div>
+                  <LifestyleParallax key={i} src={img} index={i} />
                 )
               )}
-            </motion.div>
+            </div>
           </RevealItem>
         </div>
       </section>
