@@ -38,6 +38,7 @@ function App() {
               <div className="flex flex-col flex-1 min-w-0 bg-transparent">
                 <header className="flex items-center justify-between p-2 border-b bg-background/50 backdrop-blur-md sticky top-0 z-40">
                   <SidebarTrigger data-testid="button-sidebar-toggle" />
+                  
                   <div className="flex items-center gap-2">
                     <ThemeToggle />
                   </div>
