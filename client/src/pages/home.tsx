@@ -166,21 +166,6 @@ function LifestyleParallax({ src, index }: { src: string; index: number }) {
     <motion.div
       ref={ref}
       style={{ y }}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      variants={{
-        hidden: { opacity: 0, scale: 0.95 },
-        visible: {
-          opacity: 1,
-          scale: 1,
-          transition: {
-            delay: index * 0.15,
-            duration: 0.8,
-            ease: "easeOut",
-          },
-        },
-      }}
       className={`overflow-hidden rounded-xl border border-border group relative ${
         index === 1 || index === 2 ? "row-span-2" : ""
       }`}
