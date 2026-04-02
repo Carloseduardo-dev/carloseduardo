@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, VariantProps } from "class-variance-authority"
-import { PanelLeftIcon, XIcon, MenuIcon } from "lucide-react"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
@@ -187,7 +187,8 @@ function Sidebar({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-sidebar text-sidebar-foreground w-[var(--sidebar-width)] p-0 [&>button]:hidden"
+          className="bg-sidebar text-sidebar-foreground w-[var(--sidebar-width)] p-0"
+          hideCloseButton
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
@@ -260,6 +261,7 @@ function SidebarTrigger({
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar, open, openMobile, isMobile } = useSidebar()
   const isOpen = isMobile ? openMobile : open
+  const label = isOpen ? "Fechar sidebar" : "Abrir sidebar"
 
   return (
     <Button
@@ -267,15 +269,20 @@ function SidebarTrigger({
       data-slot="sidebar-trigger"
       variant="ghost"
       size="icon"
-      className={cn("h-7 w-7", className)}
+      aria-label={label}
+      title={label}
+      className={cn(
+        "h-9 w-9 rounded-xl border border-border/60 bg-background/60 text-foreground shadow-sm backdrop-blur-md transition-all duration-200 hover:border-primary/40 hover:bg-accent/70 hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring",
+        className
+      )}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      {isOpen ? <XIcon /> : <MenuIcon />}
-      <span className="sr-only">Toggle Sidebar</span>
+      {isOpen ? <ChevronLeftIcon className="h-4 w-4" /> : <ChevronRightIcon className="h-4 w-4" />}
+      <span className="sr-only">{label}</span>
     </Button>
   )
 }

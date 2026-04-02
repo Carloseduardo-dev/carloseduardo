@@ -1,14 +1,9 @@
 import {
-  Calendar,
-  Home,
-  Inbox,
   Search,
-  Settings,
   User,
   Code2,
   Github,
   MessageSquare,
-  Phone,
 } from "lucide-react";
 import {
   Sidebar,
@@ -20,6 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 
 const items = [
@@ -56,18 +52,21 @@ export function AppSidebar() {
       collapsible="icon"
       className="bg-background/30 backdrop-blur-md border-r"
     >
-      <SidebarHeader className="p-4 bg-transparent">
-        <div className="flex items-center gap-2 font-semibold">
-          <div className="w-8 h-8 rounded-lg border border-border flex items-center justify-center">
-            <img
-              src="/favicon.svg"
-              alt="Carlos Eduardo Logo"
-              className="w-5 h-5"
-            />
+      <SidebarHeader className="p-4 bg-transparent border-b border-border/60">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 font-semibold min-w-0">
+            <div className="w-8 h-8 rounded-lg border border-border flex items-center justify-center shrink-0">
+              <img
+                src="/favicon.svg"
+                alt="Carlos Eduardo Logo"
+                className="w-5 h-5"
+              />
+            </div>
+            <span className="truncate group-data-[collapsible=icon]:hidden">
+              Portfolio
+            </span>
           </div>
-          <span className="group-data-[collapsible=icon]:hidden">
-            Portfolio
-          </span>
+          <SidebarTrigger className="flex md:hidden shrink-0" />
         </div>
       </SidebarHeader>
       <SidebarContent>
