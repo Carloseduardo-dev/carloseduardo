@@ -1,4 +1,8 @@
-import { Github, Instagram, Linkedin, Mail, Users } from "lucide-react";
+import { Users } from "lucide-react";
+import githubIcon from "@/assets/tech/GitHub.svg";
+import linkedInIcon from "@/assets/tech/LinkedIn.svg";
+import emailIcon from "@/assets/social/email.svg";
+import instagramIcon from "@/assets/social/instagram.svg";
 import { RevealItem } from "@/components/common/reveal-item";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
@@ -19,12 +23,12 @@ export function ContactSection() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                  <Mail className="text-primary w-5 h-5" /> Contato Direto
+                  <img src={emailIcon} alt="" className="h-5 w-5 object-contain dark:invert" /> Contato Direto
                 </h3>
                 <div className="space-y-4">
                   <Button variant="ghost" className="w-full justify-start hover-elevate px-4 h-12" asChild>
                     <a href={`mailto:${siteConfig.email}`}>
-                      <Mail className="mr-3 h-5 w-5 text-primary" />{siteConfig.email}
+                      <img src={emailIcon} alt="" className="mr-3 h-5 w-5 object-contain dark:invert" />{siteConfig.email}
                     </a>
                   </Button>
                 </div>
@@ -36,17 +40,17 @@ export function ContactSection() {
                 <div className="flex flex-wrap gap-4">
                   <Button variant="outline" size="icon" className="w-12 h-12 rounded-full hover-elevate" asChild>
                     <a href={siteConfig.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="Perfil no GitHub">
-                      <Github className="w-5 h-5" />
+                      <img src={githubIcon} alt="" className="h-5 w-5 object-contain dark:invert" />
                     </a>
                   </Button>
                   <Button variant="outline" size="icon" className="w-12 h-12 rounded-full hover-elevate" asChild>
                     <a href={siteConfig.linkedInUrl} target="_blank" rel="noopener noreferrer" aria-label="Perfil no LinkedIn">
-                      <Linkedin className="w-5 h-5" />
+                      <img src={linkedInIcon} alt="" className="h-5 w-5 object-contain" />
                     </a>
                   </Button>
                   <Button variant="outline" size="icon" className="w-12 h-12 rounded-full hover-elevate" asChild>
                     <a href={siteConfig.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Perfil no Instagram">
-                      <Instagram className="w-5 h-5" />
+                      <img src={instagramIcon} alt="" className="h-5 w-5 object-contain" />
                     </a>
                   </Button>
                 </div>

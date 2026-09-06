@@ -13,6 +13,8 @@ import firebaseIcon from "@/assets/tech/Firebase.svg";
 import mysqlIcon from "@/assets/tech/MySQL.svg";
 import gitIcon from "@/assets/tech/Git.svg";
 import n8nIcon from "@/assets/tech/n8n.svg";
+import nodeIcon from "@/assets/tech/Node.js.svg";
+import awsIcon from "@/assets/tech/AWS.svg";
 import vscodeIcon from "@/assets/tech/VScode.svg";
 import cssIcon from "@/assets/tech/css3.svg";
 import htmlIcon from "@/assets/tech/HTML5.svg";
@@ -29,7 +31,9 @@ export const technologies: Technology[] = [
   { name: "JavaScript", icon: jsIcon },
   { name: "React", icon: reactIcon },
   { name: "Next.js", icon: nextIcon },
+  { name: "Node.js", icon: nodeIcon },
   { name: "Firebase", icon: firebaseIcon },
+  { name: "AWS", icon: awsIcon },
   { name: "MySQL", icon: mysqlIcon },
   { name: "Git", icon: gitIcon },
   { name: "n8n", icon: n8nIcon },

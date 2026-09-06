@@ -1,4 +1,5 @@
 import { ChevronRight, Terminal } from "lucide-react";
+import { TechnologyIcon } from "@/components/common/technology-icon";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,7 +20,11 @@ export function ProjectCaseCard({ project }: ProjectCaseCardProps) {
     <article className="group flex h-full flex-col rounded-xl border border-border bg-card p-6 hover-elevate">
       <div className="mb-4 flex items-center gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-          <Terminal className="h-5 w-5 text-primary" aria-hidden="true" />
+          <TechnologyIcon
+            name={project.stack[0]}
+            className="h-6 w-6"
+            fallback={<Terminal className="h-5 w-5 text-primary" aria-hidden="true" />}
+          />
         </div>
         <div>
           <h3 className="font-semibold transition-colors group-hover:text-primary">{project.title}</h3>
@@ -31,7 +36,8 @@ export function ProjectCaseCard({ project }: ProjectCaseCardProps) {
 
       <div className="flex flex-wrap gap-2">
         {project.stack.map((technology) => (
-          <span key={technology} className="rounded-md bg-secondary px-2 py-1 text-xs text-muted-foreground">
+          <span key={technology} className="inline-flex items-center gap-1.5 rounded-md bg-secondary px-2 py-1 text-xs text-muted-foreground">
+            <TechnologyIcon name={technology} className="h-3.5 w-3.5" />
             {technology}
           </span>
         ))}
@@ -56,7 +62,8 @@ export function ProjectCaseCard({ project }: ProjectCaseCardProps) {
           </div>
           <div className="flex flex-wrap gap-2">
             {project.stack.map((technology) => (
-              <span key={technology} className="rounded-md bg-secondary px-2 py-1 text-xs text-muted-foreground">
+              <span key={technology} className="inline-flex items-center gap-1.5 rounded-md bg-secondary px-2 py-1 text-xs text-muted-foreground">
+                <TechnologyIcon name={technology} className="h-3.5 w-3.5" />
                 {technology}
               </span>
             ))}
