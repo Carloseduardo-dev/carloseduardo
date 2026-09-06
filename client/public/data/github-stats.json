@@ -1,27 +1,63 @@
 {
   "username": "Carloseduardo-dev",
-  "updatedAt": null,
+  "updatedAt": "2026-09-06T17:15:00.514Z",
   "period": {
-    "from": null,
-    "to": null
+    "from": "2025-08-31T03:00:00Z",
+    "to": "2026-09-07T02:59:59Z"
   },
   "summary": {
-    "repositoryCount": 16,
+    "repositoryCount": 32,
     "stars": 1,
-    "includesPrivate": false
+    "includesPrivate": true
   },
   "activity": {
     "reviews": 0,
     "issues": 0,
-    "pullRequests": 6,
-    "commits": 94
+    "pullRequests": 0,
+    "commits": 70
   },
   "languages": [
-    { "name": "Python", "color": "#3572A5", "bytes": 141815, "percentage": 62.71 },
-    { "name": "JavaScript", "color": "#f1e05a", "bytes": 28856, "percentage": 12.76 },
-    { "name": "Kotlin", "color": "#A97BFF", "bytes": 22331, "percentage": 9.87 },
-    { "name": "Java", "color": "#b07219", "bytes": 13349, "percentage": 5.9 },
-    { "name": "CSS", "color": "#663399", "bytes": 11084, "percentage": 4.9 },
-    { "name": "HTML", "color": "#e34c26", "bytes": 8706, "percentage": 3.85 }
+    {
+      "name": "TypeScript",
+      "color": "#3178c6",
+      "bytes": 4875149,
+      "percentage": 92.94
+    },
+    {
+      "name": "Python",
+      "color": "#3572A5",
+      "bytes": 148947,
+      "percentage": 2.84
+    },
+    {
+      "name": "CSS",
+      "color": "#663399",
+      "bytes": 66346,
+      "percentage": 1.26
+    },
+    {
+      "name": "JavaScript",
+      "color": "#f1e05a",
+      "bytes": 48427,
+      "percentage": 0.92
+    },
+    {
+      "name": "MDX",
+      "color": "#fcb32c",
+      "bytes": 34065,
+      "percentage": 0.65
+    },
+    {
+      "name": "Kotlin",
+      "color": "#A97BFF",
+      "bytes": 22331,
+      "percentage": 0.43
+    },
+    {
+      "name": "Outras",
+      "color": "#64748b",
+      "bytes": 50362,
+      "percentage": 0.96
+    }
   ]
 }
