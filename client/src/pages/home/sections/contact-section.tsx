@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Phone, Users } from "lucide-react";
+import { Github, Instagram, Linkedin, Mail, Users } from "lucide-react";
 import { RevealItem } from "@/components/common/reveal-item";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
@@ -27,11 +27,6 @@ export function ContactSection() {
                       <Mail className="mr-3 h-5 w-5 text-primary" />{siteConfig.email}
                     </a>
                   </Button>
-                  <Button variant="ghost" className="w-full justify-start hover-elevate px-4 h-12" asChild>
-                    <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">
-                      <Phone className="mr-3 h-5 w-5 text-primary" />WhatsApp: {siteConfig.phone}
-                    </a>
-                  </Button>
                 </div>
               </div>
               <div>
@@ -49,20 +44,12 @@ export function ContactSection() {
                       <Linkedin className="w-5 h-5" />
                     </a>
                   </Button>
+                  <Button variant="outline" size="icon" className="w-12 h-12 rounded-full hover-elevate" asChild>
+                    <a href={siteConfig.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Perfil no Instagram">
+                      <Instagram className="w-5 h-5" />
+                    </a>
+                  </Button>
                 </div>
-              </div>
-              <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10">
-                <h4 className="font-semibold mb-2 flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-primary" /> Falar no WhatsApp
-                </h4>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Prefere uma conversa mais rápida? Fale comigo diretamente pelo WhatsApp.
-                </p>
-                <Button asChild className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full">
-                  <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">
-                    <Phone className="w-4 h-4 mr-2" />Conversar pelo WhatsApp
-                  </a>
-                </Button>
               </div>
             </div>
             <ContactForm />
