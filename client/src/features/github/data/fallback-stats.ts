@@ -1,0 +1,17 @@
+import type { GitHubStats } from "@/features/github/model/github-stats";
+
+export const fallbackGitHubStats: GitHubStats = {
+  username: "Carloseduardo-dev",
+  updatedAt: null,
+  period: { from: null, to: null },
+  summary: { repositoryCount: 16, stars: 1, includesPrivate: false },
+  activity: { reviews: 0, issues: 0, pullRequests: 6, commits: 94 },
+  languages: [
+    { name: "Python", color: "#3572A5", bytes: 141815, percentage: 62.71 },
+    { name: "JavaScript", color: "#f1e05a", bytes: 28856, percentage: 12.76 },
+    { name: "Kotlin", color: "#A97BFF", bytes: 22331, percentage: 9.87 },
+    { name: "Java", color: "#b07219", bytes: 13349, percentage: 5.9 },
+    { name: "CSS", color: "#663399", bytes: 11084, percentage: 4.9 },
+    { name: "HTML", color: "#e34c26", bytes: 8706, percentage: 3.85 },
+  ],
+};
