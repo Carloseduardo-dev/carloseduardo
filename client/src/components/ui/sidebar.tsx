@@ -187,11 +187,12 @@ function Sidebar({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-sidebar text-sidebar-foreground w-[var(--sidebar-width)] p-0"
+          className="text-foreground w-[var(--sidebar-width)] p-0"
           hideCloseButton
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
+              backgroundColor: "hsl(var(--background))",
             } as React.CSSProperties
           }
           side={side}

@@ -10,7 +10,6 @@ import {
   Cloud,
   Terminal,
   Zap,
-  MessageCircle,
   Phone,
   Send,
   Users,
@@ -36,7 +35,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 
 import { GitHubSnake } from "@/components/github-snake";
 import perfilImg from "@/assets/profile/perfil.png";
@@ -44,11 +43,6 @@ import statsImg from "@/assets/github/stats.png";
 import activityImg from "@/assets/github/activity-overview.png";
 import pullSharkImg from "@/assets/github/pull-shark.png";
 import quickdrawImg from "@/assets/github/quickdraw.png";
-import linkedinProfileImg from "@/assets/profile/perfil-linkedin.png";
-
-import messageVaga1 from "@/assets/recruiters/message-vaga1.png";
-import messageVaga2 from "@/assets/recruiters/message-vaga2.png";
-import messageVaga3 from "@/assets/recruiters/message-vaga3.png";
 
 import lifestyle1Img from "@/assets/lifestyle/lifestyle1.jpg";
 import lifestyle2Img from "@/assets/lifestyle/lifestyle2.jpeg";
@@ -93,28 +87,28 @@ const projects = [
   {
     title: "Sistema de Pagamentos",
     description:
-      "Implementação completa de gateway de pagamentos com integração de múltiplos provedores e dashboard analítico.",
+      "Gateway de pagamentos com múltiplos provedores e dashboard para acompanhar as operações em um só lugar.",
     stack: ["TypeScript", "Node.js", "React", "Firebase"],
     type: "Fintech",
   },
   {
     title: "Dashboard Analítico",
     description:
-      "Painel de controle com métricas em tempo real, visualização de dados e relatórios automatizados.",
+      "Painel com métricas em tempo real, visualizações claras e relatórios automatizados para apoiar decisões.",
     stack: ["Next.js", "TypeScript", "Recharts", "Firebase"],
     type: "Analytics",
   },
   {
     title: "Automações Profissionais",
     description:
-      "Workflows automatizados para processos internos, integrações com APIs e notificações inteligentes.",
+      "Workflows que conectam APIs, automatizam processos internos e entregam notificações no momento certo.",
     stack: ["n8n", "Node.js", "REST APIs", "Webhooks"],
     type: "Automation",
   },
   {
     title: "Armazenamento Cloud",
     description:
-      "Sistema de upload e gerenciamento de arquivos com AWS S3, otimização de imagens e CDN.",
+      "Fluxo de upload e gestão de arquivos com AWS S3, otimização de imagens e distribuição por CDN.",
     stack: ["AWS S3", "Node.js", "Sharp", "CloudFunctions"],
     type: "Infrastructure",
   },
@@ -144,7 +138,11 @@ function ProfileParallax({ src }: { src: string }) {
       style={{ x: mouseX, y: mouseY }}
       className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20"
     >
-      <img src={src} alt="Profile" className="w-full h-full object-cover" />
+      <img
+        src={src}
+        alt="Carlos Eduardo Ferreira"
+        className="w-full h-full object-cover"
+      />
     </motion.div>
   );
 }
@@ -172,79 +170,11 @@ function LifestyleParallax({ src, index }: { src: string; index: number }) {
     >
       <img
         src={src}
-        alt={`Lifestyle ${index + 1}`}
+        alt={`Registro da jornada de Carlos Eduardo ${index + 1}`}
         className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
     </motion.div>
-  );
-}
-
-function CascadeReveal({
-  images,
-  isRecruiter = false,
-}: {
-  images: string[];
-  isRecruiter?: boolean;
-}) {
-  const [visibleIndices, setVisibleIndices] = useState<number[]>([]);
-  const refs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const observers = refs.current.map((ref, index) => {
-      if (!ref) return null;
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.99) {
-            setVisibleIndices((prev) => {
-              if (prev.includes(index)) return prev;
-              return [...prev, index];
-            });
-          }
-        },
-        { threshold: 0.99 }
-      );
-      observer.observe(ref);
-      return observer;
-    });
-    return () => observers.forEach((o) => o?.disconnect());
-  }, []);
-
-  return (
-    <div
-      className={
-        isRecruiter ? "space-y-4" : "grid grid-cols-2 lg:grid-cols-4 gap-4"
-      }
-    >
-      {images.map((img, i) => {
-        const canShow = i === 0 || visibleIndices.includes(i - 1);
-        return (
-          <motion.div
-            key={i}
-            ref={(el) => {
-              refs.current[i] = el;
-            }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={
-              canShow && visibleIndices.includes(i)
-                ? { opacity: 1, y: 0 }
-                : { opacity: 0, y: 20 }
-            }
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className={`overflow-hidden rounded-xl border border-border group relative ${
-              !isRecruiter && (i === 1 || i === 2) ? "row-span-2" : ""
-            }`}
-          >
-            <img
-              src={img}
-              alt={`Reveal ${i + 1}`}
-              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-          </motion.div>
-        );
-      })}
-    </div>
   );
 }
 
@@ -288,8 +218,8 @@ export default function Home() {
     const mailtoLink = `mailto:contatocarloseduardofe@gmail.com?subject=Contato de ${values.name}&body=${values.message}%0D%0A%0D%0AEmail de contato: ${values.email}`;
     window.location.href = mailtoLink;
     toast({
-      title: "Solicitação enviada!",
-      description: "Seu cliente de e-mail foi aberto com os dados preenchidos.",
+      title: "Mensagem preparada",
+      description: "Seu aplicativo de e-mail foi aberto com os dados preenchidos.",
     });
   }
 
@@ -376,54 +306,50 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 text-muted-foreground leading-relaxed">
                 <p data-testid="sobre-texto-1">
-                  Sou{" "}
+                  Olá, me chamo{" "}
                   <strong className="text-foreground">Carlos Eduardo</strong>,
-                  Software Engineer com experiência em ambientes de startup e
-                  projetos em produção. Atualmente me especializo no
-                  desenvolvimento de aplicações modernas usando
-                  <strong className="text-primary">
-                    {" "}
-                    TypeScript, Node.js, Next.js, React e Firebase
-                  </strong>
-                  , sempre buscando soluções bem pensadas, seguras e fáceis de
-                  evoluir ao longo do tempo.
+                  Software Engineer com experiência em startups e sistemas em
+                  produção. Atuo na construção e evolução de produtos digitais,
+                  de aplicações web e APIs a aplicativos, integrações e
+                  automações. Escolho tecnologias de acordo com o contexto de
+                  cada produto, com foco em soluções confiáveis, seguras e
+                  fáceis de manter.
                 </p>
 
                 <p data-testid="sobre-texto-2">
-                  Ao longo da minha trajetória, já participei da construção de
-                  sistemas de pagamento, soluções de armazenamento em nuvem com
-                  AWS S3, dashboards analíticos e integrações com APIs
-                  amplamente utilizadas no mercado.
+                  Já participei da construção de sistemas de pagamento,
+                  soluções de armazenamento com AWS S3, dashboards analíticos,
+                  automações e integrações com APIs usadas em produtos reais.
                 </p>
 
                 <p data-testid="sobre-texto-3">
-                  Gosto de trabalhar em ambientes colaborativos, trocar ideias e
-                  aprender com outras pessoas. Valorizo comunicação clara, boas
-                  práticas e a construção de código que faça sentido tanto para
-                  o negócio quanto para quem vai manter no futuro.
+                  Em equipe, valorizo comunicação clara, colaboração e boas
+                  práticas. Meu objetivo é entregar código que resolva o
+                  problema do negócio hoje sem dificultar a evolução do produto
+                  amanhã.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {[
                   {
                     icon: Code2,
-                    label: "Clean Code",
-                    desc: "Código limpo e manutenível",
+                    label: "Código sustentável",
+                    desc: "Clareza para manter e evoluir",
                   },
                   {
                     icon: Database,
                     label: "Backend",
-                    desc: "APIs robustas e escaláveis",
+                    desc: "APIs REST confiáveis",
                   },
                   {
                     icon: Cloud,
                     label: "Cloud",
-                    desc: "AWS, Firebase, Deploy",
+                    desc: "AWS, Firebase e deploy",
                   },
                   {
                     icon: Zap,
                     label: "Automação",
-                    desc: "Workflows inteligentes",
+                    desc: "Integrações e workflows",
                   },
                 ].map((item, i) => (
                   <RevealItem key={i} delay={i * 0.1}>
@@ -454,8 +380,9 @@ export default function Home() {
               Tecnologias & <span className="text-gradient">Ferramentas</span>
             </h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Tecnologias que utilizo no dia a dia para construir soluções reais
-              em produção
+              Algumas das tecnologias que utilizo para tirar soluções do papel
+              e sustentá-las em produção. A escolha depende do contexto e dos
+              objetivos de cada produto.
             </p>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
               {technologies.map((tech, i) => (
@@ -495,10 +422,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Experiência & <span className="text-gradient">Projetos</span>
+              Projetos que viraram <span className="text-gradient">soluções reais</span>
             </h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Sistemas reais desenvolvidos em ambiente de produção
+              Uma amostra dos desafios que já transformei em software.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               {projects.map((project, i) => (
@@ -546,10 +473,11 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              GitHub & <span className="text-gradient">Atividade Técnica</span>
+              Código & <span className="text-gradient">evolução contínua</span>
             </h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Contribuições consistentes e engajamento técnico contínuo
+              Atividade no GitHub, contribuições e aprendizados que fazem parte
+              da minha rotina como desenvolvedor.
             </p>
             <div className="grid lg:grid-cols-2 gap-6 mb-8">
               <RevealItem delay={0.2}>
@@ -622,61 +550,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Recrutadores Section */}
-      <section className="py-20 px-6" data-testid="section-social-proof">
-        <div className="max-w-6xl mx-auto">
-          <RevealItem>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Reconhecimento &{" "}
-              <span className="text-gradient">Oportunidades</span>
-            </h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Presença ativa no mercado e interesse de recrutadores
-            </p>
-            <div className="grid lg:grid-cols-2 gap-8 items-start">
-              <RevealItem delay={0.1}>
-                <div
-                  className="bg-card border border-border rounded-xl p-4 overflow-hidden"
-                  data-testid="linkedin-profile"
-                >
-                  <img
-                    src={linkedinProfileImg}
-                    alt="LinkedIn Profile"
-                    className="w-full h-auto rounded-lg"
-                  />
-                </div>
-              </RevealItem>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 mb-6">
-                  <MessageCircle className="w-6 h-6 text-primary" />
-                  <h3 className="text-xl font-semibold">
-                    Mensagens de Recrutadores
-                  </h3>
-                </div>
-                <CascadeReveal
-                  images={[messageVaga1, messageVaga2, messageVaga3]}
-                  isRecruiter
-                />
-                <p className="text-sm text-muted-foreground text-center pt-4">
-                  Convites para processos seletivos e indicações profissionais
-                </p>
-              </div>
-            </div>
-          </RevealItem>
-        </div>
-      </section>
-
       {/* Lifestyle Section */}
       <section className="py-20 px-6" data-testid="section-lifestyle">
         <div className="max-w-6xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Lifestyle & <span className="text-gradient">Jornada</span>
+              Minha jornada <span className="text-gradient">além do código</span>
             </h2>
             <p className="text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
-              Além do código, acredito que a construção de uma carreira sólida
-              envolve experiências, conexões, aprendizado contínuo e presença em
-              ambientes que impulsionam crescimento profissional e pessoal.
+              Uma carreira também se constrói com experiências, boas conexões e
+              aprendizado contínuo. Estes são alguns registros do caminho que
+              percorro dentro e fora da tecnologia.
             </p>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[lifestyle1Img, lifestyle2Img, lifestyle3Img, lifestyle4Img].map(
@@ -698,11 +582,11 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <RevealItem>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Vamos <span className="text-gradient">Conversar?</span>
+              Vamos construir algo <span className="text-gradient">juntos?</span>
             </h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Tem um projeto em mente ou quer apenas bater um papo sobre
-              tecnologia? Sinta-se à vontade para entrar em contato.
+              Se você procura um desenvolvedor de software para seu time ou tem um projeto em mente que
+              precisa sair do papel, conte-me sobre o desafio.
             </p>
             <div className="grid md:grid-cols-2 gap-12">
               <div className="space-y-8">
@@ -777,8 +661,8 @@ export default function Home() {
                     <Phone className="w-4 h-4 text-primary" /> Falar no WhatsApp
                   </h4>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Clique abaixo para abrir uma conversa direta de forma rápida
-                    e segura.
+                    Prefere uma conversa mais rápida? Fale comigo diretamente
+                    pelo WhatsApp.
                   </p>
                   <Button
                     asChild
@@ -790,7 +674,7 @@ export default function Home() {
                       rel="noopener noreferrer"
                     >
                       <Phone className="w-4 h-4 mr-2" />
-                      WhatsApp Direto
+                      Conversar pelo WhatsApp
                     </a>
                   </Button>
                 </div>
@@ -857,7 +741,7 @@ export default function Home() {
                     data-testid="button-submit-contact"
                   >
                     <Send className="w-4 h-4 mr-2" />
-                    Enviar mensagem
+                    Preparar e-mail
                   </Button>
                 </form>
               </Form>
