@@ -4,6 +4,7 @@ import lifestyle1Img from "@/assets/lifestyle/lifestyle1.jpg";
 import lifestyle2Img from "@/assets/lifestyle/lifestyle2.jpeg";
 import lifestyle3Img from "@/assets/lifestyle/lifestyle3.jpeg";
 import lifestyle4Img from "@/assets/lifestyle/lifestyle4.jpg";
+import webSummitImg from "@/assets/lifestyle/websummit.jpeg";
 import tsIcon from "@/assets/tech/TypeScript.svg";
 import jsIcon from "@/assets/tech/JavaScript.svg";
 import reactIcon from "@/assets/tech/React.svg";
@@ -73,4 +74,5 @@ export const lifestyleImages = [
   lifestyle2Img,
   lifestyle3Img,
   lifestyle4Img,
+  webSummitImg,
 ];

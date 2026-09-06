@@ -1,4 +1,5 @@
 import { RevealItem } from "@/components/common/reveal-item";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { lifestyleImages } from "@/data/portfolio";
 import { LifestyleParallax } from "@/pages/home/components/lifestyle-parallax";
 
@@ -13,11 +14,14 @@ export function LifestyleSection() {
           <p className="text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
             Uma carreira também se constrói com experiências, boas conexões e aprendizado contínuo. Estes são alguns registros do caminho que percorro dentro e fora da tecnologia.
           </p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {lifestyleImages.map((image, index) => (
-              <LifestyleParallax key={image} src={image} index={index} />
-            ))}
-          </div>
+          <ScrollArea className="w-full" aria-label="Galeria de registros da minha jornada">
+            <div className="flex w-max gap-4 pb-4">
+              {lifestyleImages.map((image, index) => (
+                <LifestyleParallax key={image} src={image} index={index} />
+              ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         </RevealItem>
       </div>
     </section>
