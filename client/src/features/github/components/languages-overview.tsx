@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Code2, GitPullRequest, MessageSquareCode } from "lucide-react";
+import { GitPullRequest, MessageSquareCode } from "lucide-react";
 import { formatPercentage } from "@/features/github/lib/format-percentage";
 import type { GitHubStats } from "@/features/github/model/github-stats";
 
@@ -12,19 +12,12 @@ export function LanguagesOverview({ stats }: { stats: GitHubStats }) {
       return segment;
     });
   }, [stats.languages]);
-  const scopeLabel = stats.summary.includesPrivate
-    ? "Dados agregados de repositórios públicos e privados"
-    : "Volume de código em repositórios públicos próprios";
-
   return (
-    <article className="h-full bg-card border border-border rounded-xl p-5 overflow-hidden" data-testid="github-languages">
-      <div className="flex items-start justify-between gap-4 mb-6">
-        <div>
-          <h3 className="font-semibold text-lg">Linguagens mais utilizadas</h3>
-          <p className="text-sm text-muted-foreground">{scopeLabel}</p>
-        </div>
-        <Code2 className="size-5 text-primary shrink-0" aria-hidden="true" />
-      </div>
+    <article
+      className="h-full bg-card border border-border rounded-xl p-5 overflow-hidden"
+      data-testid="github-languages"
+      aria-label="Distribuição de linguagens"
+    >
       <div className="grid sm:grid-cols-[minmax(150px,0.8fr)_minmax(180px,1.2fr)] items-center gap-6">
         <div className="relative mx-auto size-44" role="img" aria-label="Distribuição das linguagens mais utilizadas">
           <svg viewBox="0 0 120 120" className="size-full -rotate-90">

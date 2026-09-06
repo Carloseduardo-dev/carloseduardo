@@ -14,7 +14,6 @@ export interface GitHubStats {
   summary: {
     repositoryCount: number;
     stars: number;
-    includesPrivate: boolean;
   };
   activity: Record<ActivityKey, number>;
   languages: GitHubLanguage[];
