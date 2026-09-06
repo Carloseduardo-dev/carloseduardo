@@ -8,6 +8,7 @@ export interface Technology {
 export interface Project {
   title: string;
   description: string;
+  contribution: string;
   stack: string[];
   type: string;
 }

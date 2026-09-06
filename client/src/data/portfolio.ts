@@ -39,28 +39,32 @@ export const technologies: Technology[] = [
 
 export const projects: Project[] = [
   {
-    title: "Sistema de Pagamentos",
-    description: "Gateway de pagamentos com múltiplos provedores e dashboard para acompanhar as operações em um só lugar.",
+    title: "Integração de Pagamentos",
+    description: "Integração com gateway para processar pagamentos e acompanhar cada etapa da transação.",
+    contribution: "Implementei a integração com o gateway e organizei o ciclo das transações, do início à confirmação. Também tratei mudanças de estado e cenários de falha para manter cada pagamento consistente.",
     stack: ["TypeScript", "Node.js", "React", "Firebase"],
-    type: "Fintech",
+    type: "Pagamentos",
   },
   {
     title: "Dashboard Analítico",
-    description: "Painel com métricas em tempo real, visualizações claras e relatórios automatizados para apoiar decisões.",
+    description: "Painel administrativo que reúne indicadores e facilita o acompanhamento da operação.",
+    contribution: "Criei o painel para reunir indicadores em um só lugar. Organizei as visualizações usadas no acompanhamento diário, facilitando a leitura dos dados e a análise dos resultados.",
     stack: ["Next.js", "TypeScript", "Recharts", "Firebase"],
-    type: "Analytics",
+    type: "Análise de dados",
   },
   {
     title: "Automações Profissionais",
-    description: "Workflows que conectam APIs, automatizam processos internos e entregam notificações no momento certo.",
+    description: "Fluxos no n8n que conectam APIs, webhooks e integrações com WhatsApp a processos internos.",
+    contribution: "Desenvolvi fluxos no n8n para conectar APIs de WhatsApp e outros serviços aos processos internos. Com isso, etapas repetitivas passaram a acontecer automaticamente.",
     stack: ["n8n", "Node.js", "REST APIs", "Webhooks"],
-    type: "Automation",
+    type: "Automação",
   },
   {
-    title: "Armazenamento Cloud",
-    description: "Fluxo de upload e gestão de arquivos com AWS S3, otimização de imagens e distribuição por CDN.",
-    stack: ["AWS S3", "Node.js", "Sharp", "CloudFunctions"],
-    type: "Infrastructure",
+    title: "Armazenamento em Nuvem",
+    description: "Fluxo de upload e armazenamento de arquivos com AWS S3.",
+    contribution: "Implementei o armazenamento de arquivos na AWS S3, configurando buckets, regiões e regras de CORS para viabilizar os uploads. Também trabalhei no processamento dos arquivos antes de salvá-los.",
+    stack: ["AWS S3", "Node.js", "Sharp", "Cloud Functions"],
+    type: "Infraestrutura",
   },
 ];
 
