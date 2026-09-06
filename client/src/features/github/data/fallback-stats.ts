@@ -4,7 +4,7 @@ export const fallbackGitHubStats: GitHubStats = {
   username: "Carloseduardo-dev",
   updatedAt: null,
   period: { from: null, to: null },
-  summary: { repositoryCount: 16, stars: 1 },
+  summary: { repositoryCount: 32, stars: 1 },
   activity: { reviews: 0, issues: 0, pullRequests: 6, commits: 94 },
   languages: [
     { name: "Python", color: "#3572A5", bytes: 141815, percentage: 62.71 },

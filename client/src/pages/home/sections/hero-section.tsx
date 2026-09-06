@@ -1,4 +1,4 @@
-import { Code2, Mail, MapPin } from "lucide-react";
+import { Code2, FileText, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RevealItem } from "@/components/common/reveal-item";
 import { ProfileParallax } from "@/pages/home/components/profile-parallax";
@@ -20,7 +20,7 @@ export function HeroSection() {
               <span className="text-gradient">Ferreira</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4 font-medium" data-testid="hero-subtitle">
-              Software Engineer | Computer Science
+              Software Engineer | Full Stack
             </p>
             <p className="flex items-center justify-center lg:justify-start gap-2 text-muted-foreground mb-8">
               <MapPin className="w-4 h-4" />
@@ -32,6 +32,11 @@ export function HeroSection() {
               </Button>
               <Button asChild variant="outline" size="lg" className="border-border hover:bg-secondary rounded-full" data-testid="hero-cta-projetos">
                 <a href="#projetos"><Code2 className="w-5 h-5 mr-2" />Ver projetos</a>
+              </Button>
+              <Button asChild variant="ghost" size="lg" className="rounded-full" data-testid="hero-cta-curriculo">
+                <a href="/curriculo-carlos-eduardo-ferreira.pdf" target="_blank" rel="noopener noreferrer">
+                  <FileText className="w-5 h-5 mr-2" />Ver currículo
+                </a>
               </Button>
             </div>
           </RevealItem>

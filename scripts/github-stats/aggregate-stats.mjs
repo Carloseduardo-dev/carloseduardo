@@ -44,7 +44,7 @@ export function aggregateGitHubStats({ username, contributions, repositories }) 
       to: contributions.endedAt,
     },
     summary: {
-      repositoryCount: repositories.filter((repository) => !repository.isPrivate).length,
+      repositoryCount: repositories.length,
       stars: repositories.reduce((sum, repository) => sum + repository.stargazerCount, 0),
     },
     activity: {
