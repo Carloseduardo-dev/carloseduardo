@@ -15,7 +15,7 @@ import {
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="bg-background border-r">
-      <SidebarHeader className="p-4 bg-background border-b border-border/60">
+      <SidebarHeader className="h-16 shrink-0 justify-center border-b border-border/60 bg-background px-4 py-0">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 font-semibold min-w-0">
             <div className="w-8 h-8 rounded-lg border border-border flex items-center justify-center shrink-0">
