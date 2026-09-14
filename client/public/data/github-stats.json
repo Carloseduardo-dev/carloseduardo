@@ -1,9 +1,9 @@
 {
   "username": "Carloseduardo-dev",
-  "updatedAt": "2026-09-13T11:52:27.554Z",
+  "updatedAt": "2026-09-14T12:47:30.984Z",
   "period": {
-    "from": "2025-09-07T03:00:00Z",
-    "to": "2026-09-14T02:59:59Z"
+    "from": "2025-09-14T03:00:00Z",
+    "to": "2026-09-15T02:59:59Z"
   },
   "summary": {
     "repositoryCount": 33,
@@ -20,43 +20,43 @@
       "name": "TypeScript",
       "color": "#3178c6",
       "bytes": 4879618,
-      "percentage": 84.57
+      "percentage": 76.27
     },
     {
       "name": "Kotlin",
       "color": "#A97BFF",
-      "bytes": 541797,
-      "percentage": 9.39
+      "bytes": 989560,
+      "percentage": 15.47
     },
     {
       "name": "Python",
       "color": "#3572A5",
-      "bytes": 148947,
-      "percentage": 2.58
+      "bytes": 299633,
+      "percentage": 4.68
     },
     {
       "name": "CSS",
       "color": "#663399",
       "bytes": 66931,
-      "percentage": 1.16
+      "percentage": 1.05
     },
     {
       "name": "JavaScript",
       "color": "#f1e05a",
-      "bytes": 48347,
-      "percentage": 0.84
+      "bytes": 50396,
+      "percentage": 0.79
     },
     {
-      "name": "MDX",
-      "color": "#fcb32c",
-      "bytes": 34065,
-      "percentage": 0.59
+      "name": "HTML",
+      "color": "#e34c26",
+      "bytes": 45833,
+      "percentage": 0.72
     },
     {
       "name": "Outras",
       "color": "#64748b",
-      "bytes": 50362,
-      "percentage": 0.87
+      "bytes": 65584,
+      "percentage": 1.03
     }
   ]
 }
